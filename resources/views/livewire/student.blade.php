@@ -19,10 +19,11 @@
                     <div class="form-group">
                         <label for="mobile">Mobile no:</label>
                         <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" name="mobile">
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="button">Submit</button>
-                        </div>
                     </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Submit</button>
+                    </div>
+                    
                 </form>
             </div>
 

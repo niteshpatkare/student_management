@@ -27,12 +27,12 @@
                 <p>Teacher Data</p>
             </div>
             <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">
-                <h3>Subject Information</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                <h3 style="text-align: center">Student Information</h3>
+                @livewire('subject')
             </div>
             <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="exam-tab">
-                <h3>Exam</h3>
-                <p>Exam Information</p>
+                <h3 style="text-align: center">Exam Information</h3>
+                @livewire('exam')
             </div>
         </div>
     </div>
