@@ -1,5 +1,4 @@
 <!-- resources/views/tasks.blade.php -->
-
 <x-layout>
     <div class="container-fluid">
         <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
@@ -28,17 +27,12 @@
                 <p>Teacher Data</p>
             </div>
             <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">
-                <h3 style="text-align: center">Student Information</h3>
+                <h3 style="text-align: center">Subject Information</h3>
                 @livewire('subject')
             </div>
             <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="exam-tab">
-<<<<<<< HEAD
                 <h3 style="text-align: center">Exam Information</h3>
                 @livewire('exam')
-=======
-                <h3 style="text-align: center">Exam</h3>
-                <p>Exam Information</p>
->>>>>>> d526790ffb996d68fb06cda3284b200a32009dba
             </div>
         </div>
     </div>
