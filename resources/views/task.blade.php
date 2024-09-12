@@ -23,7 +23,8 @@
                 @livewire('student')
             </div>
             <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
-                <h3>Teacher</h3>
+                <h3 style="text-align: center">Teacher</h3>
+                @livewire('teacher')
                 <p>Teacher Data</p>
             </div>
             <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">
@@ -31,7 +32,7 @@
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
             </div>
             <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="exam-tab">
-                <h3>Exam</h3>
+                <h3 style="text-align: center">Exam</h3>
                 <p>Exam Information</p>
             </div>
         </div>
