@@ -19,8 +19,8 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
-                <h3>Student</h3>
-                <p>Student Data </p>
+                <h3 style="text-align: center">Student Information</h3>
+                @livewire('student')
             </div>
             <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
                 <h3>Teacher</h3>
