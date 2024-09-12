@@ -14,7 +14,8 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="text" class="form-control" id="phone" placeholder="Enter teacher's phone number">
+                    <input type="text" class="form-control" id="phone"
+                        placeholder="Enter teacher's phone number">
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
@@ -22,7 +23,8 @@
                 </div>
                 <div class="form-group">
                     <label for="qualification">Qualification:</label>
-                    <input type="text" class="form-control" id="qualification" placeholder="Enter teacher's qualifications">
+                    <input type="text" class="form-control" id="qualification"
+                        placeholder="Enter teacher's qualifications">
                 </div>
                 <div class="form-group">
                     <label for="department">Department:</label>
@@ -90,8 +92,10 @@
                         <td>Programming</td>
                         <td>Active</td>
                         <td>
-                            <button class="btn btn-secondary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
