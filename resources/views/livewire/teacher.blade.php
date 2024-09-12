@@ -13,16 +13,28 @@
                     <input type="email" class="form-control" id="teach_email" placeholder="Enter teacher's email">
                 </div>
                 <div class="form-group">
+<<<<<<< HEAD
                     <label for="teach_phone">Phone:</label>
                     <input type="text" class="form-control" id="teach_phone" placeholder="Enter teacher's phone number">
+=======
+                    <label for="phone">Phone:</label>
+                    <input type="text" class="form-control" id="phone"
+                        placeholder="Enter teacher's phone number">
+>>>>>>> ce4eafa37003c4d6a9d4fcfdc490e4b054c94af3
                 </div>
                 <div class="form-group">
                     <label for="teach_address">Address:</label>
                     <input type="text" class="form-control" id="teach_address" placeholder="Enter teacher's address">
                 </div>
                 <div class="form-group">
+<<<<<<< HEAD
                     <label for="teach_qualification">Qualification:</label>
                     <input type="text" class="form-control" id="teach_qualification" placeholder="Enter teacher's qualifications">
+=======
+                    <label for="qualification">Qualification:</label>
+                    <input type="text" class="form-control" id="qualification"
+                        placeholder="Enter teacher's qualifications">
+>>>>>>> ce4eafa37003c4d6a9d4fcfdc490e4b054c94af3
                 </div>
                 <div class="form-group">
                     <label for="teach_department">Department:</label>
@@ -90,8 +102,10 @@
                         <td>Programming</td>
                         <td>Active</td>
                         <td>
-                            <button class="btn btn-secondary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
