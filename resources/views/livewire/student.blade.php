@@ -5,20 +5,20 @@
             <div class="col-md-4 border">
                 <form>
                     <div class="form-group">
-                        <label for="name">Student name:</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                        <label for="stud_name">Student name:</label>
+                        <input type="text" class="form-control" id="stud_name" placeholder="Enter name" name="name">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                        <label for="stud_email">Email:</label>
+                        <input type="email" class="form-control" id="stud_email" placeholder="Enter email" name="email">
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
+                        <label for="stud_address">Address:</label>
+                        <input type="text" class="form-control" id="stud_address" placeholder="Enter Address" name="address">
                     </div>
                     <div class="form-group">
-                        <label for="mobile">Mobile no:</label>
-                        <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" name="mobile">
+                        <label for="stud_mobile">Mobile no:</label>
+                        <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number" name="mobile">
                     </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="button">Submit</button>

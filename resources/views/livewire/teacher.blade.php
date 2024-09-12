@@ -5,30 +5,40 @@
             <h2>Add/Edit Teacher</h2>
             <form>
                 <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter teacher's full name">
+                    <label for="teach_name">Name:</label>
+                    <input type="text" class="form-control" id="teach_name" placeholder="Enter teacher's full name">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter teacher's email">
+                    <label for="teach_email">Email:</label>
+                    <input type="email" class="form-control" id="teach_email" placeholder="Enter teacher's email">
                 </div>
                 <div class="form-group">
+<<<<<<< HEAD
+                    <label for="teach_phone">Phone:</label>
+                    <input type="text" class="form-control" id="teach_phone" placeholder="Enter teacher's phone number">
+=======
                     <label for="phone">Phone:</label>
                     <input type="text" class="form-control" id="phone"
                         placeholder="Enter teacher's phone number">
+>>>>>>> ce4eafa37003c4d6a9d4fcfdc490e4b054c94af3
                 </div>
                 <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input type="text" class="form-control" id="address" placeholder="Enter teacher's address">
+                    <label for="teach_address">Address:</label>
+                    <input type="text" class="form-control" id="teach_address" placeholder="Enter teacher's address">
                 </div>
                 <div class="form-group">
+<<<<<<< HEAD
+                    <label for="teach_qualification">Qualification:</label>
+                    <input type="text" class="form-control" id="teach_qualification" placeholder="Enter teacher's qualifications">
+=======
                     <label for="qualification">Qualification:</label>
                     <input type="text" class="form-control" id="qualification"
                         placeholder="Enter teacher's qualifications">
+>>>>>>> ce4eafa37003c4d6a9d4fcfdc490e4b054c94af3
                 </div>
                 <div class="form-group">
-                    <label for="department">Department:</label>
-                    <select class="form-control" id="department">
+                    <label for="teach_department">Department:</label>
+                    <select class="form-control" id="teach_department">
                         <option value="computer_science">Computer Science</option>
                         <option value="mathematics">Mathematics</option>
                         <option value="physics">Physics</option>
@@ -37,8 +47,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <select class="form-control" id="subject">
+                    <label for="teach_subject">Subject:</label>
+                    <select class="form-control" id="teach_subject">
                         <!-- Subjects related to Computer Science -->
                         <option value="programming">Programming</option>
                         <option value="data_structures">Data Structures</option>
