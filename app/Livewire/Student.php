@@ -79,4 +79,3 @@ class Student extends Component
     }
 }
 
-
