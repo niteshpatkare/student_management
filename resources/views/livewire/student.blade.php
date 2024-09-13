@@ -1,27 +1,32 @@
 <div>
     <div class="container">
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <!-- Added 'g-3' to the row for gap between columns -->
         <div class="row g-3">
             <div class="col-md-4 border">
-                <form>
+                <form wire:submit="save">
                     <div class="form-group">
                         <label for="stud_name">Student name:</label>
-                        <input type="text" class="form-control" id="stud_name" placeholder="Enter name" name="name">
+                        <input type="text" class="form-control" id="stud_name" wire:model="name" placeholder="Enter name" name="name">
                     </div>
                     <div class="form-group">
                         <label for="stud_email">Email:</label>
-                        <input type="email" class="form-control" id="stud_email" placeholder="Enter email" name="email">
+                        <input type="email" class="form-control" id="stud_email" wire:model="email" placeholder="Enter email" name="email">
                     </div>
                     <div class="form-group">
                         <label for="stud_address">Address:</label>
-                        <input type="text" class="form-control" id="stud_address" placeholder="Enter Address" name="address">
+                        <input type="text" class="form-control" id="stud_address" wire:model="address" placeholder="Enter Address" name="address">
                     </div>
                     <div class="form-group">
                         <label for="stud_mobile">Mobile no:</label>
-                        <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number" name="mobile">
+                        <input type="tel" class="form-control" id="stud_mobile" wire:model="mobile_no" placeholder="Enter mobile number" name="mobile">
                     </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" onclick="createStudent()"  type="button">Submit</button>
+                        <button class="btn btn-primary" wire:click="createStudent()" type="button">Submit</button>
                     </div>
                     
                 </form>
