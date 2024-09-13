@@ -26,22 +26,28 @@ class Exam extends Component
         'instructions' => 'nullable',
         'status' => 'required'
     ];
+    
 
     public function createOrUpdateExam()
     {
-
-        $this->validate();
+        //dd($this->getInput());
+        //dd($this->isEditing);
+        //dd($this->validate());
+        
+        
 
         if ($this->isEditing) {
             $exam = ExamModel::find($this->examId);
             $exam->update($this->getInput());
         } else {
-            dd($this->getInput());
-            ExamModel::create($this->getInput());
+           
+            $exam=ExamModel::create($this->getInput());
+            //dd($exam);
         }
 
         $this->resetForm();
     }
+    
 
     public function getInput()
     {
@@ -110,6 +116,7 @@ class Exam extends Component
 
     public function render()
     {
-        return view('livewire.exam', ['exams' => Exam::all()]);
+        //dd(Exam::all());
+        return view('livewire.exam', ['exams' => ExamModel::all()]);
     }
 }
