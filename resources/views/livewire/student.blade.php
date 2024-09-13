@@ -31,30 +31,39 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">StudentID</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile No</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>John</td>
+                            <td>john123@gmail.com</td>
+                            <td>1263549878</td>
+                            <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td>Smith</td>
+                            <td>smith123@gmail.com</td>
+                            <td>1234567890</td>
+                            <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
+                            </td>
                         </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
