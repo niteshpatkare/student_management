@@ -28,49 +28,45 @@
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" wire:click="createStudent()" type="button">Submit</button>
                     </div>
-                    
                 </form>
             </div>
 
-            <div class="col-md-8 border">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">StudentID</th>
-                            <th scope="col">Student Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Mobile No</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>John</td>
-                            <td>john123@gmail.com</td>
-                            <td>1263549878</td>
-                            <td>
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
-                            </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Smith</td>
-                            <td>smith123@gmail.com</td>
-                            <td>1234567890</td>
-                            <td>
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
-                            </div>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+            <!-- Table Section -->
+            <div class="col-md-8 border rounded p-4 shadow-sm bg-white">
+                <h4 class="mb-3">Students List</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile No</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($students as $student)
+                                <tr>
+                                    <th scope="row">{{ $student['id'] }}</th>
+                                    <td>{{ $student['name'] }}</td>
+                                    <td>{{ $student['email'] }}</td>
+                                    <td>{{ $student['mobile_no'] }}</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-outline-primary btn-sm" wire:click="edit({{ $student['id'] }})">Edit</button>
+                                            <button class="btn btn-outline-primary btn-sm" wire:click="delete({{ $student['id'] }})">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No Students Available</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
