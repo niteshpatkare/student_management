@@ -23,7 +23,7 @@
             </div>
             <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
                 <h3 style="text-align: center">Teacher</h3>
-                @livewire('teacher')
+                @livewire('teacher-form')
                 <p>Teacher Data</p>
             </div>
             <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">

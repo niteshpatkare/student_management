@@ -1,32 +1,32 @@
 <div>
-    <div class="container">
-        @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-        <!-- Added 'g-3' to the row for gap between columns -->
-        <div class="row g-3">
-            <div class="col-md-4 border">
+    <div class="container py-4">
+        <div class="row gy-4">
+            <!-- Form Section -->
+            <div class="col-md-4 border rounded p-4 shadow-sm bg-light">
+                <h4 class="mb-3">Add/Update Student</h4>
                 <form wire:submit.prevent="submit">
-                    <div class="form-group">
-                        <label for="stud_name">Student name:</label>
-                        <input type="text" class="form-control" id="stud_name" wire:model="name" placeholder="Enter name" name="name">
+                    <div class="mb-3">
+                        <label for="stud_name" class="form-label">Student Name:</label>
+                        <input type="text" class="form-control" id="stud_name" placeholder="Enter name" wire:model="name">
+                        @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="stud_email">Email:</label>
-                        <input type="email" class="form-control" id="stud_email" wire:model="email" placeholder="Enter email" name="email">
+                    <div class="mb-3">
+                        <label for="stud_email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="stud_email" placeholder="Enter email" wire:model="email">
+                        @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="stud_address">Address:</label>
-                        <input type="text" class="form-control" id="stud_address" wire:model="address" placeholder="Enter Address" name="address">
+                    <div class="mb-3">
+                        <label for="stud_address" class="form-label">Address:</label>
+                        <input type="text" class="form-control" id="stud_address" placeholder="Enter Address" wire:model="address">
+                        @error('address') <span class="text-danger small">{{ $message }}</span> @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="stud_mobile">Mobile no:</label>
-                        <input type="tel" class="form-control" id="stud_mobile" wire:model="mobile_no" placeholder="Enter mobile number" name="mobile">
+                    <div class="mb-3">
+                        <label for="stud_mobile" class="form-label">Mobile No:</label>
+                        <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number" wire:model="mobile_no">
+                        @error('mobile_no') <span class="text-danger small">{{ $message }}</span> @enderror
                     </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" >Submit</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

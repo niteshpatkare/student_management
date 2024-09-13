@@ -1,0 +1,117 @@
+<div class="container-fluid">
+    <div class="row g-3">
+        <!-- Form Section -->
+        <div class="col-md-4 border">
+            <h2>{{ $editingId ? 'Edit Teacher' : 'Add Teacher' }}</h2>
+            <form wire:submit.prevent="save">
+                <div class="form-group">
+                    <label for="teach_name">Name:</label>
+                    <input type="text" class="form-control" id="teach_name" wire:model="name" placeholder="Enter teacher's full name">
+                    @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="teach_email">Email:</label>
+                    <input type="email" class="form-control" id="teach_email" wire:model="email" placeholder="Enter teacher's email">
+                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="teach_phone">Phone:</label>
+                    <input type="text" class="form-control" id="teach_phone" wire:model="phone" placeholder="Enter teacher's phone number">
+                    @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="teach_address">Address:</label>
+                    <input type="text" class="form-control" id="teach_address" wire:model="address" placeholder="Enter teacher's address">
+                    @error('address') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="teach_qualification">Qualification:</label>
+                    <input type="text" class="form-control" id="teach_qualification" wire:model="qualification" placeholder="Enter teacher's qualifications">
+                    @error('qualification') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+    <label for="teach_department">Department:</label>
+    <select class="form-control" id="teach_department" wire:model="department">
+        <option value="">Select Department</option> <!-- Add a default empty option -->
+        <option value="computer_science">Computer Science</option>
+        <option value="mathematics">Mathematics</option>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+    </select>
+    @error('department') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
+
+                <div class="form-group">
+                    <label for="teach_subject">Subject:</label>
+                    <select class="form-control" id="teach_subject" wire:model="subject">
+                        <option value="programming">Programming</option>
+                        <option value="data_structures">Data Structures</option>
+                        <option value="algorithms">Algorithms</option>
+                        <option value="web_development">Web Development</option>
+                        <option value="databases">Databases</option>
+                    </select>
+                    @error('subject') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="hire_date">Hire Date:</label>
+                    <input type="date" class="form-control" id="hire_date" wire:model="hire_date">
+                    @error('hire_date') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" wire:model="status">
+                        <option value="">Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="On Leave">On Leave</option>
+                        <option value="Retired">Retired</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">{{ $editingId ? 'Update' : 'Save' }}</button>
+            </form>
+        </div>
+
+        <!-- Data Table Section -->
+        <div class="col-md-8 border">
+            <h2>Teacher List</h2>
+            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($teachers as $teacher)
+                        <tr>
+                            <td>{{ $teacher->id }}</td>
+                            <td>{{ $teacher->name }}</td>
+                            <td>{{ $teacher->email }}</td>
+                            <td>{{ $teacher->phone }}</td>
+                            <td>{{ $teacher->department }}</td>
+                            <td>{{ $teacher->subject }}</td>
+                            <td>{{ $teacher->status }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" wire:click="edit({{ $teacher->id }})">Edit</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" wire:click="delete({{ $teacher->id }})">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No Teachers Available</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>

@@ -73,13 +73,9 @@ class Student extends Component
         session()->flash('message', 'Student deleted successfully.');
     }
 
-   
- 
-    
     public function render()
     {
         return view('livewire.student');
     }
 }
-
 
