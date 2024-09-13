@@ -3,69 +3,69 @@
         <!-- Form Section -->
         <div class="col-md-4 border">
             <h2>Add/Edit Exam</h2>
-            <form>
+            <form wire:submit.prevent="createOrUpdateExam">
                 <div class="form-group">
                     <label for="exam_name">Exam Name:</label>
-                    <input type="text" class="form-control" id="exam_name" placeholder="Enter exam name">
+                    <input type="text" class="form-control" wire:model="exam_name" id="exam_name" placeholder="Enter exam name">
                 </div>
                 <div class="form-group">
                     <label for="exam_code">Exam Code:</label>
-                    <input type="text" class="form-control" id="exam_code" placeholder="Enter exam code">
+                    <input type="text" class="form-control" wire:model="exam_code" id="exam_code" placeholder="Enter exam code">
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject:</label>
-                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                    <input type="text" class="form-control" wire:model="subject" id="subject" placeholder="Enter subject">
                 </div>
                 <div class="form-group">
                     <label for="teacher">Teacher:</label>
-                    <input type="text" class="form-control" id="teacher" placeholder="Enter teacher's name">
+                    <input type="text" class="form-control" wire:model="teacher" id="teacher" placeholder="Enter teacher's name">
                 </div>
                 <div class="form-group">
                     <label for="department">Department:</label>
-                    <input type="text" class="form-control" id="department" placeholder="Enter department">
+                    <input type="text" class="form-control" wire:model="department" id="department" placeholder="Enter department">
                 </div>
                 <div class="form-group">
                     <label for="exam_type">Exam Type:</label>
-                    <select class="form-control" id="exam_type">
-                        <option>Written</option>
-                        <option>Oral</option>
-                        <option>Practical</option>
+                    <select class="form-control" wire:model="exam_type" id="exam_type">
+                        <option value="Written">Written</option>
+                        <option value="Oral">Oral</option>
+                        <option value="Practical">Practical</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="exam_date">Exam Date:</label>
-                    <input type="date" class="form-control" id="exam_date">
+                    <input type="date" class="form-control" wire:model="exam_date" id="exam_date">
                 </div>
                 <div class="form-group">
                     <label for="exam_time">Exam Time:</label>
-                    <input type="text" class="form-control" id="exam_time" placeholder="Enter exam time">
+                    <input type="text" class="form-control" wire:model="exam_time" id="exam_time" placeholder="Enter exam time">
                 </div>
                 <div class="form-group">
                     <label for="duration">Duration:</label>
-                    <input type="text" class="form-control" id="duration" placeholder="Enter exam duration">
+                    <input type="text" class="form-control" wire:model="duration" id="duration" placeholder="Enter exam duration">
                 </div>
                 <div class="form-group">
                     <label for="location">Location:</label>
-                    <input type="text" class="form-control" id="location" placeholder="Enter exam location">
+                    <input type="text" class="form-control" wire:model="location" id="location" placeholder="Enter exam location">
                 </div>
                 <div class="form-group">
                     <label for="max_marks">Max Marks:</label>
-                    <input type="number" class="form-control" id="max_marks" placeholder="Enter max marks">
+                    <input type="number" class="form-control" wire:model="max_marks" id="max_marks" placeholder="Enter max marks">
                 </div>
                 <div class="form-group">
                     <label for="passing_marks">Passing Marks:</label>
-                    <input type="number" class="form-control" id="passing_marks" placeholder="Enter passing marks">
+                    <input type="number" class="form-control" wire:model="passing_marks" id="passing_marks" placeholder="Enter passing marks">
                 </div>
                 <div class="form-group">
                     <label for="instructions">Instructions:</label>
-                    <textarea class="form-control" id="instructions" rows="3" placeholder="Enter exam instructions"></textarea>
+                    <textarea class="form-control" wire:model="instructions" id="instructions" rows="3" placeholder="Enter exam instructions"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="status">Status:</label>
-                    <select class="form-control" id="status">
-                        <option>Scheduled</option>
-                        <option>Completed</option>
-                        <option>Cancelled</option>
+                    <select class="form-control" wire:model="status" id="status">
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -78,7 +78,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Exam Name</th>
                         <th>Subject</th>
                         <th>Teacher</th>
@@ -91,32 +91,30 @@
                 </thead>
                 <tbody>
                     <!-- Example Row -->
-                    <tr>
-                        <td>1</td>
-                        <td>Midterm Exam</td>
-                        <td>Mathematics</td>
-                        <td>Dr. Jane Doe</td>
-                        <td>2024-05-15</td>
-                        <td>10:00 AM - 12:00 PM</td>
-                        <td>Room 101</td>
-                        <td>Scheduled</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- More rows as needed -->
+                    @forelse($exams as $exam)
+                        <tr>
+                            <td>{{ $exam->id }}</td>
+                            <td>{{ $exam->exam_name }}</td>
+                            <td>{{ $exam->exam_code }}</td>
+                            <td>{{ $exam->subject }}</td>
+                            <td>{{ $exam->teacher }}</td>
+                            <td>{{ $exam->exam_date }}</td>
+                            <td>{{ $exam->exam_time }}</td>
+                            <td>{{ $exam->location }}</td>
+                            <td>{{ $exam->status }}</td>
+                            <td>
+                                <button wire:click="editExam({{ $exam->id }})" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button wire:click="deleteExam({{ $exam->id }})" class="btn btn-outline-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="10" class="text-center">No exams found.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-            <!-- Pagination Controls -->
-            {{-- <nav>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav> --}}
+            
         </div>
     </div>
 </div>
