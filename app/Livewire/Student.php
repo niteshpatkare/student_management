@@ -13,7 +13,7 @@ class Student extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => 'required|email|unique:students,email,' . $this->student_id,
             'address' => 'required|string|max:255',
             'mobile_no' => 'required|string|max:10',
