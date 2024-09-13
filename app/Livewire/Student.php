@@ -75,24 +75,7 @@ class Student extends Component
 
    
  
-    public function createStudent()
-    {
-        $data = [
-            'name' => $this->name,
-            'email' => $this->email,
-            'address' => $this->address,
-            'mobile_no' => $this->mobile_no
-        ];
-        
-        
-
-        Student::create($this->data);
-        session()->flash('message', 'Student created successfully!');
-        $this->reset('data');
-       
-    }
- 
-
+    
     public function render()
     {
         return view('livewire.student');

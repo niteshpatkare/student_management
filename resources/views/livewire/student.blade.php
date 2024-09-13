@@ -8,7 +8,7 @@
         <!-- Added 'g-3' to the row for gap between columns -->
         <div class="row g-3">
             <div class="col-md-4 border">
-                <form wire:submit="save">
+                <form wire:submit.prevent="submit">
                     <div class="form-group">
                         <label for="stud_name">Student name:</label>
                         <input type="text" class="form-control" id="stud_name" wire:model="name" placeholder="Enter name" name="name">
@@ -26,7 +26,7 @@
                         <input type="tel" class="form-control" id="stud_mobile" wire:model="mobile_no" placeholder="Enter mobile number" name="mobile">
                     </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" wire:click="createStudent()" type="button">Submit</button>
+                        <button class="btn btn-primary" type="button" >Submit</button>
                     </div>
                 </form>
             </div>
