@@ -29,10 +29,22 @@
                         <tr>
                             <th scope="row">101</th>
                             <td>Mark</td>
+                            <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">102</th>
                             <td>Jacob</td>
+                            <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
+                            </td>
                         </tr>
 
                     </tbody>
