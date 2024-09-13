@@ -21,7 +21,7 @@
                         <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number" name="mobile">
                     </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Submit</button>
+                        <button class="btn btn-primary" onclick="createStudent()"  type="button">Submit</button>
                     </div>
                     
                 </form>

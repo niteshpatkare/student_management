@@ -102,8 +102,10 @@
                         <td>Room 101</td>
                         <td>Scheduled</td>
                         <td>
-                            <button class="btn btn-secondary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Delete</button>
+                            </div>
                         </td>
                     </tr>
                     <!-- More rows as needed -->
