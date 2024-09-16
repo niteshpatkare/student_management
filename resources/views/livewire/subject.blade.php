@@ -91,8 +91,9 @@
     </script>
 
     <script>
-        window.addEventListener('show-delete-confirmation', event => {
-        Swal.fire({
+        window.addEventListener('show-delete-confirmation-subject', event => {
+        alert("Okay1");
+            Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
             icon: "warning",
@@ -102,7 +103,7 @@
             confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteConfirmed')
+                    Livewire.dispatch('deleteSubjectConfirm')
                 }
             });
 
