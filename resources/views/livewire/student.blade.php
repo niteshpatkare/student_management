@@ -34,7 +34,7 @@
         <div class="col-md-9 shadow-sm bg-white">
             <!-- <h4 class="mb-3">Students List</h4> -->
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -52,7 +52,7 @@
                                 <td>{{ $student['email'] }}</td>
                                 <td>{{ $student['mobile_no'] }}</td>
                                 <td>
-                                    <div class="d-flex gap-2">
+                                    <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm" wire:click="edit({{ $student['id'] }})">Edit</button>
                                         <button class="btn btn-outline-primary btn-sm" wire:click="dltStudent({{ $student['id'] }})">Delete</button>
                                     </div>
@@ -76,18 +76,21 @@
         // Trigger IziToast notification immediately with the received message
         if(data.status==1){
             iziToast.info({
+                timeout:2000,
                 position: "topRight",
                 message: data.message,  // Accessing the message from the event data
             });
         }
         if(data.status==2){
             iziToast.success({
+                timeout:2000,
                 position: "topRight",
                 message: data.message,  // Accessing the message from the event data
             });
         }
         if(data.status==3){
             iziToast.success({
+                timeout:2000,
                 position: "topRight",
                 message: data.message,  // Accessing the message from the event data
             });

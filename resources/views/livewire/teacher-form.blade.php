@@ -95,7 +95,7 @@
         <div class="col-md-9 ">
             <!-- <h2>Teacher List</h2>
             <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search"> -->
-            <table class="table">
+            <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -144,18 +144,21 @@
                 // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
+                        timeout:2000,
                         position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
+                        timeout:2000,
                         position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
+                        timeout:2000,
                         position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
