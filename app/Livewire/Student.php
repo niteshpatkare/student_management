@@ -93,4 +93,3 @@ class Student extends Component
         return view('livewire.student');
     }
 }
-

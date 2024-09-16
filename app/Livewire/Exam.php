@@ -9,6 +9,7 @@ class Exam extends Component
 {
     public $exam_name, $exam_code, $subject, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
+    public $delete_id;
 
     protected $rules = [
         'exam_name' => 'required',
@@ -26,19 +27,15 @@ class Exam extends Component
 
     public function createOrUpdateExam()
     {
-        //dd($this->getInput());
-        //dd($this->isEditing);
-        //dd($this->validate());
-        
-        
-
+ 
         if ($this->isEditing) {
             $exam = ExamModel::find($this->examId);
             $exam->update($this->getInput());
+            $this->dispatch('ExamEvent', status: 1, message : 'Data updated successfully!');
         } else {
            
             $exam=ExamModel::create($this->getInput());
-            //dd($exam);
+            $this->dispatch('ExamEvent', status: 2, message : 'Data created successfully!');
         }
 
         $this->resetForm();
@@ -91,17 +88,20 @@ class Exam extends Component
 
     // }
 
+    protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
+
+    public function dltExam($id)
+    {
+        $this->delete_id=$id;
+        $this->dispatch('show-delete-confirmation-Exam');
+    }
+
     public function deleteExam()
     {
-        
-        //$subject = SubjectModel::find($this->delete_id)->update(['is_active' => 1]);
         $exam = ExamModel::find($this->delete_id)->delete();
 
-        //session()->flash('message', 'Subject deleted successfully!');
-        $this->dispatch('examEvent', status:3, message : 'Data deleted successfully!');
-            
-
-        $this->exams = ExamModel::all(); // Refresh the list of subjects
+        $this->dispatch('ExamEvent', status: 3, message : 'Data deleted successfully!');
+        $this->exams = ExamModel::all();
     }
 
     public function resetForm()

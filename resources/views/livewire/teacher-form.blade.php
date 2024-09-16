@@ -2,6 +2,7 @@
     <div class="row mt-5">
         <!-- Form Section -->
         <div class="col-md-3 shadow-sm p-4 bg-light bg-gradient">
+            <!-- <h2>{{ $editingId ? 'Edit Teacher' : 'Add Teacher' }}</h2> -->
             <form wire:submit.prevent="save">
                 <div class="form-group">
                     <label for="teach_name">Name:</label>
@@ -92,6 +93,8 @@
 
         <!-- Data Table Section -->
         <div class="col-md-9 ">
+            <!-- <h2>Teacher List</h2>
+            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search"> -->
             <table class="table">
                 <thead>
                     <tr>
@@ -120,7 +123,7 @@
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                         wire:click="edit({{ $teacher->id }})">Edit</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm"
-                                        wire:click="delete({{ $teacher->id }})">Delete</button>
+                                        wire:click="dltTeacher({{ $teacher->id }})">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -162,17 +165,16 @@
         });
     </script>
 
-<script>
+    <script>
         window.addEventListener('show-delete-confirmation-teacher', event => {
-        alert("Okay");
             Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.dispatch('deleteTeacherConfirm')
@@ -181,7 +183,5 @@
 
         });
     </script>
-
-
 
 </div>
