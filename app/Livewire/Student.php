@@ -9,6 +9,7 @@ class Student extends Component
 {
     public $name, $email, $address, $mobile_no, $student_id;
     public $students;
+    public $delete_id;
 
     protected function rules()
     {
@@ -42,6 +43,7 @@ class Student extends Component
                 'address' => $this->address,
                 'mobile_no' => $this->mobile_no,
             ]);
+            $this->dispatch('studentEvent', status: 1, message : 'Data updated successfully!');
         } else {
             StudentModel::create([
                 'name' => $this->name,
@@ -49,11 +51,13 @@ class Student extends Component
                 'address' => $this->address,
                 'mobile_no' => $this->mobile_no,
             ]);
+            $this->dispatch('studentEvent', status: 2, message : 'Data created successfully!');
         }
 
         $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
         $this->fetchStudents();
-        session()->flash('message', 'Student information saved successfully.');
+        //session()->flash('message', 'Student information saved successfully.');
+       
     }
 
     public function edit($id)
@@ -66,11 +70,22 @@ class Student extends Component
         $this->mobile_no = $student->mobile_no;
     }
 
-    public function delete($id)
+    protected $listeners = ['deleteStudentConfirm'=>'deleteStudent'];
+
+   
+
+    public function dltStudent($id)
     {
-        StudentModel::destroy($id);
-        $this->fetchStudents();
-        session()->flash('message', 'Student deleted successfully.');
+        $this->delete_id=$id;
+        $this->dispatch('show-delete-confirmation-student');
+    }
+
+    public function deleteStudent()
+    {
+        $student = StudentModel::find($this->delete_id)->delete();
+
+        $this->dispatch('studentEvent', status: 3, message : 'Data deleted successfully!');
+        $this->students = StudentModel::all(); // Refresh the list of subjects
     }
 
     public function render()

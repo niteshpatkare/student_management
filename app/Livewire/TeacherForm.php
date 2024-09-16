@@ -10,7 +10,7 @@ class TeacherForm extends Component
     public $teachers; // List of teachers
     public $name, $email, $phone, $address, $qualification, $department, $subject, $hire_date, $status;
     public $editingId = null; // ID of the teacher being edited
-
+    public $delete_id = null;
     protected $rules = [
         'name' => 'required|string',
         'email' => 'required|email',
@@ -44,7 +44,7 @@ class TeacherForm extends Component
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
-            session()->flash('message', 'Teacher updated successfully!');
+            $this->dispatch('teacherEvent', status: 1, message : 'Data updated successfully!');
         } else {
             // Create new teacher
             Teacher::create([
@@ -58,7 +58,7 @@ class TeacherForm extends Component
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
-            session()->flash('message', 'Teacher created successfully!');
+            $this->dispatch('teacherEvent', status:2, message : 'Data created successfully!');
         }
 
         $this->resetFields();
@@ -80,10 +80,24 @@ class TeacherForm extends Component
         $this->status = $teacher->status;
     }
 
-    public function delete($id)
+    protected $listeners = ['deleteTeacherConfirm'=>'deleteTeacher'];
+    
+    public function dltTeacher($id)
     {
-        Teacher::find($id)->delete();
-        session()->flash('message', 'Teacher deleted successfully!');
+        $this->delete_id=$id;
+        $this->dispatch('show-delete-confirmation-teacher');
+        
+    }
+
+    public function deleteTeacher()
+    {
+        //dd($this->delete_id);
+        //dd(Teacher::find($this->delete_id)->delete());
+        
+        $teacher = Teacher::find($this->delete_id)->delete();
+        
+        //session()->flash('message', 'Subject deleted successfully!');
+        $this->dispatch('teacherEvent', status:3, message : 'Data deleted successfully!');
         $this->teachers = Teacher::all(); // Refresh the list of teachers
     }
 
