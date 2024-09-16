@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('mobile_no'); 
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

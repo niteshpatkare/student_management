@@ -1,8 +1,8 @@
 <div class="container-fluid">
-    <div class="row g-3">
+    <div class="row mt-5">
         <!-- Form Section -->
-        <div class="col-md-4 border">
-            <h2>{{ $editingId ? 'Edit Teacher' : 'Add Teacher' }}</h2>
+        <div class="col-md-3 shadow-sm p-4 bg-light bg-gradient">
+            <!-- <h2>{{ $editingId ? 'Edit Teacher' : 'Add Teacher' }}</h2> -->
             <form wire:submit.prevent="save">
                 <div class="form-group">
                     <label for="teach_name">Name:</label>
@@ -71,13 +71,13 @@
         </div>
 
         <!-- Data Table Section -->
-        <div class="col-md-8 border">
-            <h2>Teacher List</h2>
-            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search">
+        <div class="col-md-9 ">
+            <!-- <h2>Teacher List</h2>
+            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search"> -->
             <table class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -100,7 +100,7 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <button type="button" class="btn btn-outline-primary btn-sm" wire:click="edit({{ $teacher->id }})">Edit</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm" wire:click="delete({{ $teacher->id }})">Delete</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" wire:click="delete({{ $teacher->id }})">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -114,4 +114,35 @@
             
         </div>
     </div>
+    <script>
+        
+        document.addEventListener('livewire:init', () => {
+        Livewire.on('teacherEvent', (data) => {
+            //console.log(data.message);
+            // Trigger IziToast notification immediately with the received message
+            if(data.status==1){
+                iziToast.info({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+            if(data.status==2){
+                iziToast.success({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+            if(data.status==3){
+                iziToast.success({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+
+        });
+    });
+    </script>
+
+
+
 </div>

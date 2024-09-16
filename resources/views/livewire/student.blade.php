@@ -1,8 +1,8 @@
-<div>
-    <div class="container py-4">
-        <div class="row gy-4">
+
+    <div class="container-fluild">
+        <div class="row mt-5">
             <!-- Form Section -->
-            <div class="col-md-4 border rounded p-4 shadow-sm bg-light">
+            <div class="col-md-3 p-4 shadow-sm bg-light bg-gradient">
                 <h4 class="mb-3">Add/Update Student</h4>
                 <form wire:submit.prevent="submit">
                     <div class="mb-3">
@@ -32,10 +32,10 @@
             </div>
 
             <!-- Table Section -->
-            <div class="col-md-8 border rounded p-4 shadow-sm bg-white">
-                <h4 class="mb-3">Students List</h4>
+            <div class="col-md-9 shadow-sm bg-white">
+                <!-- <h4 class="mb-3">Students List</h4> -->
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover align-middle">
+                    <table class="table">
                         <thead class="table-primary">
                             <tr>
                                 <th scope="col">ID</th>

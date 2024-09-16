@@ -18,20 +18,20 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
-                <h3 style="text-align: center">Student Information</h3>
+                
                 @livewire('student')
             </div>
             <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
-                <h3 style="text-align: center">Teacher</h3>
+               
                 @livewire('teacher-form')
-                <p>Teacher Data</p>
+                
             </div>
             <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">
-                <h3 style="text-align: center">Subject Information</h3>
+                
                 @livewire('subject')
             </div>
             <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="exam-tab">
-                <h3 style="text-align: center">Exam Information</h3>
+               
                 @livewire('exam')
             </div>
         </div>

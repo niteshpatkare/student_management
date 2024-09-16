@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('subject');
             $table->date('hire_date');
             $table->enum('status', ['Active', 'On Leave', 'Retired']);
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }
