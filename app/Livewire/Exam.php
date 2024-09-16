@@ -14,15 +14,11 @@ class Exam extends Component
         'exam_name' => 'required',
         'exam_code' => 'required',
         'subject' => 'required',
-        'teacher' => 'required',
         'department' => 'required',
         'exam_type' => 'required',
         'exam_date' => 'required|date',
         'exam_time' => 'required',
-        'duration' => 'required',
-        'location' => 'required',
         'max_marks' => 'required|numeric',
-        'passing_marks' => 'required|numeric',
         'instructions' => 'nullable',
         'status' => 'required'
     ];
@@ -55,15 +51,11 @@ class Exam extends Component
             'exam_name' => $this->exam_name,
             'exam_code' => $this->exam_code,
             'subject' => $this->subject,
-            'teacher' => $this->teacher,
             'department' => $this->department,
             'exam_type' => $this->exam_type,
             'exam_date' => $this->exam_date,
             'exam_time' => $this->exam_time,
-            'duration' => $this->duration,
-            'location' => $this->location,
             'max_marks' => $this->max_marks,
-            'passing_marks' => $this->passing_marks,
             'instructions' => $this->instructions,
             'status' => $this->status,
         ];
@@ -76,23 +68,40 @@ class Exam extends Component
         $this->exam_name = $exam->exam_name;
         $this->exam_code = $exam->exam_code;
         $this->subject = $exam->subject;
-        $this->teacher = $exam->teacher;
         $this->department = $exam->department;
         $this->exam_type = $exam->exam_type;
         $this->exam_date = $exam->exam_date;
         $this->exam_time = $exam->exam_time;
-        $this->duration = $exam->duration;
-        $this->location = $exam->location;
         $this->max_marks = $exam->max_marks;
-        $this->passing_marks = $exam->passing_marks;
         $this->instructions = $exam->instructions;
         $this->status = $exam->status;
         $this->isEditing = true;
     }
 
-    public function deleteExam($id)
+    // public function deleteExam($id)
+    // {
+    //     ExamModel::find($id)->delete();
+    // }
+
+    // protected $listeners = ['deleteConfirmed'=>'deleteExam'];
+
+    // public function delete($id){
+    //     $this->delete_id=$id;
+    //     $this->dispatch('show-delete-confirmation');
+
+    // }
+
+    public function deleteExam()
     {
-        ExamModel::find($id)->delete();
+        
+        //$subject = SubjectModel::find($this->delete_id)->update(['is_active' => 1]);
+        $exam = ExamModel::find($this->delete_id)->delete();
+
+        //session()->flash('message', 'Subject deleted successfully!');
+        $this->dispatch('examEvent', status:3, message : 'Data deleted successfully!');
+            
+
+        $this->exams = ExamModel::all(); // Refresh the list of subjects
     }
 
     public function resetForm()
@@ -100,15 +109,11 @@ class Exam extends Component
         $this->exam_name = '';
         $this->exam_code = '';
         $this->subject = '';
-        $this->teacher = '';
         $this->department = '';
         $this->exam_type = '';
         $this->exam_date = '';
         $this->exam_time = '';
-        $this->duration = '';
-        $this->location = '';
         $this->max_marks = '';
-        $this->passing_marks = '';
         $this->instructions = '';
         $this->status = '';
         $this->isEditing = false;

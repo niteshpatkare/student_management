@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('exam_type');
             $table->date('exam_date');
             $table->string('exam_time');
-            $table->string('location');
             $table->integer('max_marks');
             $table->text('instructions')->nullable();
             $table->string('status');
