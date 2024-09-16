@@ -4,12 +4,15 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Exam as ExamModel;
+use App\Models\Subject as SubjectModel;
 
 class Exam extends Component
 {
     public $exam_name, $exam_code, $subject, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
     public $delete_id;
+    public $sub_details;
+
 
     protected $rules = [
         'exam_name' => 'required',
@@ -23,8 +26,14 @@ class Exam extends Component
         'instructions' => 'nullable',
         'status' => 'required'
     ];
-    
 
+    public function mount(){
+        $sub_details=SubjectModel::find(1);
+        dd($sub_details->sub_name);
+    }
+
+
+  
     public function createOrUpdateExam()
     {
  

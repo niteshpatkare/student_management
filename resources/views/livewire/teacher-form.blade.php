@@ -144,19 +144,19 @@
                 // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
-                        position: "topRight",
+                        position: "center",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
-                        position: "topRight",
+                        position: "center",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
-                        position: "topRight",
+                        position: "center",
                         message: data.message, // Accessing the message from the event data
                     });
                 }

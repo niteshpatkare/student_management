@@ -15,8 +15,12 @@
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject:</label>
-                    <input type="text" class="form-control" wire:model="subject" id="subject"
-                        placeholder="Enter subject">
+                    <select class="form-control" wire:model="subject" id="subject">
+                        <option value="">Select Subject</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="department">Department:</label>

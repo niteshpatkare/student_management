@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('exam_name');
             $table->string('exam_code');
-            $table->string('subject');
             $table->string('department');
             $table->string('exam_type');
             $table->date('exam_date');
@@ -24,6 +23,7 @@ return new class extends Migration
             $table->text('instructions')->nullable();
             $table->string('status');
             $table->integer('is_active')->default(1);
+            $table->foreign('sub_id')->references('id')->on('subjects');
             $table->timestamps();
         });
     }
