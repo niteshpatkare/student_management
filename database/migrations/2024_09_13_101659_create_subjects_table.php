@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('sub_name');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

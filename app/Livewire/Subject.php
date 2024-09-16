@@ -10,6 +10,7 @@ class Subject extends Component
     public $subjects; // List of subjects
     public $sub_name; // Subject name
     public $editingId = null; // ID of the subject being edited
+    public $delete_id;
 
     protected $rules = [
         'sub_name' => 'required|string',
@@ -32,17 +33,21 @@ class Subject extends Component
                 $subject->update([
                     'sub_name' => $this->sub_name,
                 ]);
-                session()->flash('message', 'Subject updated successfully!');
-            } else {
-                session()->flash('error', 'Subject not found.');
-            }
+                //session()->flash('message', 'Subject updated successfully!');
+                //$this->dispatch('subjectUpdated', ['message'=>"data Updated succesfully"]);
+                $this->dispatch('subjectEvent', status: 1, message : 'Data updated successfully!');
+                
+            } 
         } else {
             // Create new subject
             //dd($this->sub_name);
             SubjectModel::create([
                 'sub_name' => $this->sub_name
             ]);
-            session()->flash('message', 'Subject created successfully!');
+            //session()->flash('message', 'Subject created successfully!');
+            $this->dispatch('subjectEvent', status:2, message : 'Data created successfully!');
+            
+        
         }
 
         $this->resetFields();
@@ -61,16 +66,23 @@ class Subject extends Component
         }
     }
 
-    public function delete($id)
-    {
-        $subject = SubjectModel::find($id);
+    protected $listeners = ['deleteConfirmed'=>'deleteSubject'];
 
-        if ($subject) {
-            $subject->delete();
-            session()->flash('message', 'Subject deleted successfully!');
-        } else {
-            session()->flash('error', 'Subject not found.');
-        }
+    public function delete($id){
+        $this->delete_id=$id;
+        $this->dispatch('show-delete-confirmation');
+
+    }
+
+    public function deleteSubject()
+    {
+        
+        //$subject = SubjectModel::find($this->delete_id)->update(['is_active' => 1]);
+        $subject = SubjectModel::find($this->delete_id)->delete();
+
+        //session()->flash('message', 'Subject deleted successfully!');
+        $this->dispatch('subjectEvent', status:3, message : 'Data deleted successfully!');
+            
 
         $this->subjects = SubjectModel::all(); // Refresh the list of subjects
     }

@@ -16,17 +16,15 @@ return new class extends Migration
             $table->string('exam_name');
             $table->string('exam_code');
             $table->string('subject');
-            $table->string('teacher');
             $table->string('department');
             $table->string('exam_type');
             $table->date('exam_date');
             $table->string('exam_time');
-            $table->string('duration');
             $table->string('location');
             $table->integer('max_marks');
-            $table->integer('passing_marks');
             $table->text('instructions')->nullable();
             $table->string('status');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

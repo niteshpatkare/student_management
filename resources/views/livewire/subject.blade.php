@@ -1,5 +1,5 @@
 <div>
-    <div class="container">
+    <div class="container-fluid ">
         <!-- Display success and error messages -->
         @if (session()->has('message'))
             <div class="alert alert-success">
@@ -14,8 +14,8 @@
         @endif
 
         <!-- Form Section -->
-        <div class="row g-3">
-            <div class="col-md-4 border">
+        <div class="row g-3 mt-5">
+            <div class="col-md-3 p-4 bg-light bg-gradient">
                 <form wire:submit.prevent="save">
                     <div class="form-group">
                         <label for="sub_name">Subject Name</label>
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Data Table Section -->
-            <div class="col-md-8 border">
+            <div class="col-md-9">
                 <table class="table">
                     <thead>
                         <tr>
@@ -46,8 +46,8 @@
                                 <td>{{ $subject->sub_name }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" wire:click="edit({{ $subject->id }})">Edit</button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm" wire:click="delete({{ $subject->id }})">Delete</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="editButton" wire:click="edit({{ $subject->id }})">Edit</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" wire:click="delete({{ $subject->id }})">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -61,4 +61,53 @@
             </div>
         </div>
     </div>
+    <script>
+        
+        document.addEventListener('livewire:init', () => {
+        Livewire.on('subjectEvent', (data) => {
+            //console.log(data.message);
+            // Trigger IziToast notification immediately with the received message
+            if(data.status==1){
+                iziToast.info({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+            if(data.status==2){
+                iziToast.success({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+            if(data.status==3){
+                iziToast.success({
+                    position: "topRight",
+                    message: data.message,  // Accessing the message from the event data
+                });
+            }
+
+        });
+    });
+    </script>
+
+    <script>
+        window.addEventListener('show-delete-confirmation', event => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleteConfirmed')
+                }
+            });
+
+        });
+    </script>
+           
+
 </div>
