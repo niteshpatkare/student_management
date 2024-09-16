@@ -100,7 +100,7 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <button type="button" class="btn btn-outline-primary btn-sm" wire:click="edit({{ $teacher->id }})">Edit</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm" wire:click="delete({{ $teacher->id }})">Delete</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" wire:click="dltTeacher({{ $teacher->id }})">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -141,6 +141,26 @@
 
         });
     });
+    </script>
+
+<script>
+        window.addEventListener('show-delete-confirmation-teacher', event => {
+        alert("Okay");
+            Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleteTeacherConfirm')
+                }
+            });
+
+        });
     </script>
 
 

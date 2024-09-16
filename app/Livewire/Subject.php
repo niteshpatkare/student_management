@@ -66,11 +66,11 @@ class Subject extends Component
         }
     }
 
-    protected $listeners = ['deleteConfirmed'=>'deleteSubject'];
+    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject'];
 
     public function delete($id){
         $this->delete_id=$id;
-        $this->dispatch('show-delete-confirmation');
+        $this->dispatch('show-delete-confirmation-subject');
 
     }
 
