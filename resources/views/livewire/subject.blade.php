@@ -31,7 +31,7 @@
 
             <!-- Data Table Section -->
             <div class="col-md-9">
-                <table class="table">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -95,7 +95,6 @@
 
     <script>
         window.addEventListener('show-delete-confirmation-subject', event => {
-        alert("Okay1");
             Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",

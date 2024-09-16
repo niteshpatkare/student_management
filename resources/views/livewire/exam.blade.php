@@ -63,7 +63,7 @@
         </div>
 
         <div class="col-md-9">
-            <table class="table">
+            <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -87,10 +87,12 @@
                             <td>{{ $exam->exam_time }}</td>
                             <td>{{ $exam->status }}</td>
                             <td>
+                                <div class="btn-group">
                                 <button wire:click="editExam({{ $exam->id }})"
                                     class="btn btn-outline-primary btn-sm">Edit</button>
                                 <button wire:click="dltExam({{ $exam->id }})"
                                     class="btn btn-outline-primary btn-sm">Delete</button>
+                                </div>
                             </td>
                         </tr>
                     @empty
