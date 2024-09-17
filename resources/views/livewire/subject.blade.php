@@ -21,6 +21,19 @@
                         <label for="sub_name">Subject Name</label>
                         <input type="text" class="form-control" id="sub_name" wire:model="sub_name" placeholder="Enter subject name">
                     </div>
+                    <div class="form-group">
+                    <label for="teach_subject">Teacher:</label>
+                   
+                    <select class="form-control" id="teach_subject" wire:model="teach_id">
+                    
+                        <option value="">Select Subject</option>
+                        @foreach($teach_details as $teach_detail)
+                        <option value="{{$teach_detail->id}}">{{$teach_detail->name}}</option>
+                        @endforeach
+                    </select>
+                   
+                    
+                </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">
                             {{ $editingId ? 'Update Subject' : 'Add Subject' }}
@@ -36,6 +49,7 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Subject Name</th>
+                            <th scope="col">Subject Teacher</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -44,6 +58,7 @@
                             <tr>
                                 <th scope="row">{{ $subject->id }}</th>
                                 <td>{{ $subject->sub_name }}</td>
+                                <td>{{ $subject->teacher->name }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="editButton" wire:click="edit({{ $subject->id }})">Edit</button>

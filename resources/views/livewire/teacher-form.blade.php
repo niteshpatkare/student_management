@@ -58,19 +58,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="teach_subject">Subject:</label>
-                    <select class="form-control" id="teach_subject" wire:model="subject">
-                        <option value="programming">Programming</option>
-                        <option value="data_structures">Data Structures</option>
-                        <option value="algorithms">Algorithms</option>
-                        <option value="web_development">Web Development</option>
-                        <option value="databases">Databases</option>
-                    </select>
-                    @error('subject')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+                
                 <div class="form-group">
                     <label for="hire_date">Hire Date:</label>
                     <input type="date" class="form-control" id="hire_date" wire:model="hire_date">
@@ -103,7 +91,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Department</th>
-                        <th>Subject</th>
+                     
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -116,7 +104,6 @@
                             <td>{{ $teacher->email }}</td>
                             <td>{{ $teacher->phone }}</td>
                             <td>{{ $teacher->department }}</td>
-                            <td>{{ $teacher->subject }}</td>
                             <td>{{ $teacher->status }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -144,34 +131,19 @@
                 // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
-<<<<<<< HEAD
                         position: "center",
-=======
-                        timeout:2000,
-                        position: "topRight",
->>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
-<<<<<<< HEAD
                         position: "center",
-=======
-                        timeout:2000,
-                        position: "topRight",
->>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
-<<<<<<< HEAD
                         position: "center",
-=======
-                        timeout:2000,
-                        position: "topRight",
->>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
