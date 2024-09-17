@@ -18,7 +18,8 @@ class Subject extends Component
 
     public function mount()
     {
-        $this->subjects = SubjectModel::all(); // Load all subjects initially
+        $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
+        //dd($this->subjects);
     }
 
     public function save()
@@ -33,8 +34,7 @@ class Subject extends Component
                 $subject->update([
                     'sub_name' => $this->sub_name,
                 ]);
-                //session()->flash('message', 'Subject updated successfully!');
-                //$this->dispatch('subjectUpdated', ['message'=>"data Updated succesfully"]);
+               
                 $this->dispatch('subjectEvent', status: 1, message : 'Data updated successfully!');
                 
             } 
@@ -51,7 +51,8 @@ class Subject extends Component
         }
 
         $this->resetFields();
-        $this->subjects = SubjectModel::all(); // Refresh the list of subjects
+        $this->subjects = SubjectModel::where('is_active', 1)->get();
+        //$this->subjects = SubjectModel::all(); // Refresh the list of subjects
     }
 
     public function edit($id)
@@ -77,14 +78,15 @@ class Subject extends Component
     public function deleteSubject()
     {
         
-        //$subject = SubjectModel::find($this->delete_id)->update(['is_active' => 1]);
-        $subject = SubjectModel::find($this->delete_id)->delete();
+        $subject = SubjectModel::find($this->delete_id)->update(['is_active' => 0]);
+        //$subject = SubjectModel::find($this->delete_id)->delete();
 
         //session()->flash('message', 'Subject deleted successfully!');
         $this->dispatch('subjectEvent', status:3, message : 'Data deleted successfully!');
             
 
-        $this->subjects = SubjectModel::all(); // Refresh the list of subjects
+        //$this->subjects = SubjectModel::all(); // Refresh the list of subjects
+        $this->subjects = SubjectModel::where('is_active', 1)->get();
     }
 
     private function resetFields()

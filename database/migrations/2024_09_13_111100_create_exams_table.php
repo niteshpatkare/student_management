@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('exam_name');
             $table->string('exam_code');
-            $table->string('subject');
             $table->string('department');
             $table->string('exam_type');
             $table->date('exam_date');
