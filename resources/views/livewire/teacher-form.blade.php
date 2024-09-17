@@ -144,22 +144,34 @@
                 // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
+<<<<<<< HEAD
+                        position: "center",
+=======
                         timeout:2000,
                         position: "topRight",
+>>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
+<<<<<<< HEAD
+                        position: "center",
+=======
                         timeout:2000,
                         position: "topRight",
+>>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
+<<<<<<< HEAD
+                        position: "center",
+=======
                         timeout:2000,
                         position: "topRight",
+>>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
                         message: data.message, // Accessing the message from the event data
                     });
                 }
