@@ -23,7 +23,6 @@ return new class extends Migration
             $table->text('instructions')->nullable();
             $table->string('status');
             $table->integer('is_active')->default(1);
-            $table->foreign('sub_id')->references('id')->on('subjects');
             $table->timestamps();
         });
     }

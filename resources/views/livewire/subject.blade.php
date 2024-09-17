@@ -31,7 +31,7 @@
 
             <!-- Data Table Section -->
             <div class="col-md-9">
-                <table class="table">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -69,18 +69,21 @@
             // Trigger IziToast notification immediately with the received message
             if(data.status==1){
                 iziToast.info({
+                    timeout:2000,
                     position: "topRight",
                     message: data.message,  // Accessing the message from the event data
                 });
             }
             if(data.status==2){
                 iziToast.success({
+                    timeout:2000,
                     position: "topRight",
                     message: data.message,  // Accessing the message from the event data
                 });
             }
             if(data.status==3){
                 iziToast.success({
+                    timeout:2000,
                     position: "topRight",
                     message: data.message,  // Accessing the message from the event data
                 });
@@ -92,7 +95,10 @@
 
     <script>
         window.addEventListener('show-delete-confirmation-subject', event => {
+<<<<<<< HEAD
         //alert("Okay1");
+=======
+>>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
             Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",

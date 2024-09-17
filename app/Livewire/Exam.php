@@ -27,10 +27,10 @@ class Exam extends Component
         'status' => 'required'
     ];
 
-    public function mount(){
-        $sub_details=SubjectModel::find(1);
-        dd($sub_details->sub_name);
-    }
+    // public function mount(){
+    //     $sub_details=SubjectModel::find(1);
+    //     //dd($sub_details->sub_name);
+    // }
 
 
   
