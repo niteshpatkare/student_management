@@ -84,19 +84,6 @@ class Exam extends Component
         $this->isEditing = true;
     }
 
-    // public function deleteExam($id)
-    // {
-    //     ExamModel::find($id)->delete();
-    // }
-
-    // protected $listeners = ['deleteConfirmed'=>'deleteExam'];
-
-    // public function delete($id){
-    //     $this->delete_id=$id;
-    //     $this->dispatch('show-delete-confirmation');
-
-    // }
-
     protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
     public function dltExam($id)
@@ -130,7 +117,6 @@ class Exam extends Component
 
     public function render()
     {
-        //dd(Exam::all());
         return view('livewire.exam', ['exams' => ExamModel::all()]);
     }
 }
