@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Subject as SubjectModel;
-use App\Models\Student as StudentModel;
-
+use App\Models\ExamDetail;
 
 class Exam extends Model
 {
@@ -19,15 +17,12 @@ class Exam extends Model
         'exam_date', 'exam_time', 'duration', 'location', 'max_marks', 'passing_marks', 
         'instructions', 'status', 'sub_id'
     ];
+
+    public function examsdetailHasMany(): HasMany
+    {
+        return $this->hasMany(ExamDetail::class, 'id', 'exam_id');
+    }
     
 
-    public function subjectBelongsTo(): BelongsTo
-    {
-        return $this->belongsTo(SubjectModel::class);
-    }
-
-    public function studentBelongsTo(): BelongsTo
-    {
-        return $this->belongsTo(StudentModel::class);
-    }
+    
 }

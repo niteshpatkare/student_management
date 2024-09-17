@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subject as SubjectModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Teacher extends Model
 {
@@ -23,6 +24,6 @@ class Teacher extends Model
 
     public function subjects(): HasMany
     {
-        return $this->hasMany(SubjectModel::class);
+        return $this->hasMany(SubjectModel::class, 'id', 'teach_id');
     }
 }
