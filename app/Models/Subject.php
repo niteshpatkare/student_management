@@ -15,6 +15,11 @@ class Subject extends Model
     use HasFactory;
     protected $fillable = ['sub_name','teach_id', 'is_active'];
 
+    // public function teacher(): HasMany
+    // {
+    //     return $this->hasMany(Teacher::class, 'teach_id', 'id');
+    // }
+
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class, 'teach_id', 'id');

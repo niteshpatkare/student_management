@@ -17,7 +17,6 @@ class Teacher extends Model
         'address',
         'qualification',
         'department',
-        'subject',
         'hire_date',
         'status',
     ];
