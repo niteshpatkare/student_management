@@ -7,22 +7,33 @@
                 <div class="mb-3">
                     <label for="stud_name" class="form-label">Student Name:</label>
                     <input type="text" class="form-control" id="stud_name" placeholder="Enter name" wire:model="name">
-                    @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
+                    @error('name')
+                        <span class="text-danger small">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="stud_email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="stud_email" placeholder="Enter email" wire:model="email">
-                    @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
+                    <input type="email" class="form-control" id="stud_email" placeholder="Enter email"
+                        wire:model="email">
+                    @error('email')
+                        <span class="text-danger small">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="stud_address" class="form-label">Address:</label>
-                    <input type="text" class="form-control" id="stud_address" placeholder="Enter Address" wire:model="address">
-                    @error('address') <span class="text-danger small">{{ $message }}</span> @enderror
+                    <input type="text" class="form-control" id="stud_address" placeholder="Enter Address"
+                        wire:model="address">
+                    @error('address')
+                        <span class="text-danger small">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="stud_mobile" class="form-label">Mobile No:</label>
-                    <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number" wire:model="mobile_no">
-                    @error('mobile_no') <span class="text-danger small">{{ $message }}</span> @enderror
+                    <input type="tel" class="form-control" id="stud_mobile" placeholder="Enter mobile number"
+                        wire:model="mobile_no">
+                    @error('mobile_no')
+                        <span class="text-danger small">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -53,8 +64,10 @@
                                 <td>{{ $student['mobile_no'] }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-outline-primary btn-sm" wire:click="edit({{ $student['id'] }})">Edit</button>
-                                        <button class="btn btn-outline-primary btn-sm" wire:click="dltStudent({{ $student['id'] }})">Delete</button>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            wire:click="edit({{ $student['id'] }})">Edit</button>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            wire:click="dltStudent({{ $student['id'] }})">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -69,54 +82,53 @@
         </div>
     </div>
     <script>
-    
-    document.addEventListener('livewire:init', () => {
-    Livewire.on('studentEvent', (data) => {
-        //console.log(data.message);
-        // Trigger IziToast notification immediately with the received message
-        if(data.status==1){
-            iziToast.info({
-                timeout:2000,
-                position: "topRight",
-                message: data.message,  // Accessing the message from the event data
-            });
-        }
-        if(data.status==2){
-            iziToast.success({
-                timeout:2000,
-                position: "topRight",
-                message: data.message,  // Accessing the message from the event data
-            });
-        }
-        if(data.status==3){
-            iziToast.success({
-                timeout:2000,
-                position: "topRight",
-                message: data.message,  // Accessing the message from the event data
-            });
-        }
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('studentEvent', (data) => {
+                //console.log(data.message);
+                // Trigger IziToast notification immediately with the received message
+                if (data.status == 1) {
+                    iziToast.info({
+                        timeout: 2000,
+                        position: "topRight",
+                        message: data.message, // Accessing the message from the event data
+                    });
+                }
+                if (data.status == 2) {
+                    iziToast.success({
+                        timeout: 2000,
+                        position: "topRight",
+                        message: data.message, // Accessing the message from the event data
+                    });
+                }
+                if (data.status == 3) {
+                    iziToast.success({
+                        timeout: 2000,
+                        position: "topRight",
+                        message: data.message, // Accessing the message from the event data
+                    });
+                }
 
-    });
-});
-</script>
-
-<script>
-    window.addEventListener('show-delete-confirmation-student', event => {
-    //alert("Okay1");
-        Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Livewire.dispatch('deleteStudentConfirm')
-            }
+            });
         });
+    </script>
 
-    });
-</script>
+    <script>
+        window.addEventListener('show-delete-confirmation-student', event => {
+            //alert("Okay1");
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleteStudentConfirm')
+                }
+            });
+
+        });
+    </script>
 </div>
