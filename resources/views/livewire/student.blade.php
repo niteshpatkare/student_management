@@ -48,9 +48,6 @@
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search students..." wire:model="searchTerm"
                         wire:input="fetchStudents">
-                    {{-- <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i> 
-                    </button> --}}
                 </div>
             </div>
 

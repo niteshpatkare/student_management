@@ -10,9 +10,10 @@ class Exam extends Component
 {
     public $exam_name, $exam_code, $subject, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
-    public $delete_id;
+    public $delete_id,$searchTerm;
     public $sub_details;
 
+    protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
     protected $rules = [
         'exam_name' => 'required',
@@ -32,7 +33,12 @@ class Exam extends Component
         //dd($sub_details->sub_name);
     }
 
-
+    public function fetchExams()
+    {
+        $this->exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
+            ->get();
+    }
   
     public function createOrUpdateExam()
     {
@@ -84,7 +90,6 @@ class Exam extends Component
         $this->isEditing = true;
     }
 
-    protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
     public function dltExam($id)
     {
@@ -116,7 +121,13 @@ class Exam extends Component
     }
 
     public function render()
-    {
-        return view('livewire.exam', ['exams' => ExamModel::all()]);
+{
+    if($this->searchTerm){
+        $this->fetchExams();
+    } else {
+        $this->exams = ExamModel::all();
     }
+    return view('livewire.exam', ['exams' => $this->exams]);
+}
+
 }

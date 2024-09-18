@@ -12,6 +12,8 @@ class Student extends Component
     public $searchTerm = '';
     public $delete_id;
 
+    protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
+
     protected function rules()
     {
         return [
@@ -26,16 +28,6 @@ class Student extends Component
     {
         $this->fetchStudents();
     }
-
-    // public function updatedSearchTerm()
-    // {
-    //     $this->fetchStudents();
-    // }
-
-    // public function search()
-    // {
-    //     $this->fetchStudents();
-    // }
 
     public function fetchStudents()
     {
@@ -68,7 +60,7 @@ class Student extends Component
         }
 
         $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
-        // $this->fetchStudents();
+        $this->fetchStudents();
     }
 
     public function edit($id)
@@ -81,7 +73,6 @@ class Student extends Component
         $this->mobile_no = $student->mobile_no;
     }
 
-    protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
 
     public function dltStudent($id)
     {
@@ -93,7 +84,7 @@ class Student extends Component
     {
         StudentModel::find($this->delete_id)->delete();
         $this->dispatch('studentEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
-        // $this->fetchStudents();
+        $this->fetchStudents();
     }
 
     public function render()
