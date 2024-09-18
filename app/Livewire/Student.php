@@ -8,7 +8,8 @@ use App\Models\Student as StudentModel;
 class Student extends Component
 {
     public $name, $email, $address, $mobile_no, $student_id;
-    public $students;
+    public $students = [];
+    public $searchTerm = '';
     public $delete_id;
 
     protected function rules()
@@ -23,12 +24,24 @@ class Student extends Component
 
     public function mount()
     {
-        $this->fetchStudents(); 
+        $this->fetchStudents();
     }
+
+    // public function updatedSearchTerm()
+    // {
+    //     $this->fetchStudents();
+    // }
+
+    // public function search()
+    // {
+    //     $this->fetchStudents();
+    // }
 
     public function fetchStudents()
     {
-        $this->students = StudentModel::all();
+        $this->students = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+            ->get();
     }
 
     public function submit()
@@ -43,7 +56,7 @@ class Student extends Component
                 'address' => $this->address,
                 'mobile_no' => $this->mobile_no,
             ]);
-            $this->dispatch('studentEvent', status: 1, message : 'Data updated successfully!');
+            $this->dispatch('studentEvent', ['status' => 1, 'message' => 'Data updated successfully!']);
         } else {
             StudentModel::create([
                 'name' => $this->name,
@@ -51,13 +64,11 @@ class Student extends Component
                 'address' => $this->address,
                 'mobile_no' => $this->mobile_no,
             ]);
-            $this->dispatch('studentEvent', status: 2, message : 'Data created successfully!');
+            $this->dispatch('studentEvent', ['status' => 2, 'message' => 'Data created successfully!']);
         }
 
         $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
-        $this->fetchStudents();
-        //session()->flash('message', 'Student information saved successfully.');
-       
+        // $this->fetchStudents();
     }
 
     public function edit($id)
@@ -70,26 +81,26 @@ class Student extends Component
         $this->mobile_no = $student->mobile_no;
     }
 
-    protected $listeners = ['deleteStudentConfirm'=>'deleteStudent'];
-
-   
+    protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
 
     public function dltStudent($id)
     {
-        $this->delete_id=$id;
+        $this->delete_id = $id;
         $this->dispatch('show-delete-confirmation-student');
     }
 
     public function deleteStudent()
     {
-        $student = StudentModel::find($this->delete_id)->delete();
-
-        $this->dispatch('studentEvent', status: 3, message : 'Data deleted successfully!');
-        $this->students = StudentModel::all(); // Refresh the list of subjects
+        StudentModel::find($this->delete_id)->delete();
+        $this->dispatch('studentEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
+        // $this->fetchStudents();
     }
 
     public function render()
     {
-        return view('livewire.student');
+        if($this->searchTerm){
+            $this->fetchStudents();
+        }
+        return view('livewire.student', ['students' => $this->students]);
     }
 }

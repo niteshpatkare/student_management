@@ -58,7 +58,7 @@
                     @enderror
                 </div>
 
-                
+
                 <div class="form-group">
                     <label for="hire_date">Hire Date:</label>
                     <input type="date" class="form-control" id="hire_date" wire:model="hire_date">
@@ -81,8 +81,16 @@
 
         <!-- Data Table Section -->
         <div class="col-md-9 ">
-            <!-- <h2>Teacher List</h2>
-            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search"> -->
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Students List</h4>
+                <div class="input-group w-25">
+                    <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
+                        wire:input="fetchTeachers">
+                    {{-- <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i> 
+                    </button> --}}
+                </div>
+            </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -91,7 +99,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Department</th>
-                     
+
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -131,19 +139,22 @@
                 // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
-                        position: "center",
+                        timeout: 2000,
+                        position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
-                        position: "center",
+                        timeout: 2000,
+                        position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
-                        position: "center",
+                        timeout: 2000,
+                        position: "topRight",
                         message: data.message, // Accessing the message from the event data
                     });
                 }
