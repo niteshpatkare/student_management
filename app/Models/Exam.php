@@ -13,9 +13,9 @@ class Exam extends Model
     protected $table = 'exams';
 
     protected $fillable = [
-        'exam_name', 'exam_code','teacher', 'department', 'exam_type', 
-        'exam_date', 'exam_time', 'duration', 'location', 'max_marks', 'passing_marks', 
-        'instructions', 'status', 'sub_id'
+        'exam_name', 'exam_code', 'department', 'exam_type', 
+        'exam_date', 'exam_time', 'max_marks', 'passing_marks', 
+        'instructions', 'status', 'is_active'
     ];
 
     public function examsdetailHasMany(): HasMany

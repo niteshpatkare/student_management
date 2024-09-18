@@ -13,15 +13,7 @@
                     <input type="text" class="form-control" wire:model="exam_code" id="exam_code"
                         placeholder="Enter exam code">
                 </div>
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <select class="form-control" wire:model="subject" id="subject">
-                        <option value="">Select Subject</option>
-                        <option value="Scheduled">Scheduled</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled</option>
-                    </select>
-                </div>
+                
                 <div class="form-group">
                     <label for="department">Department:</label>
                     <input type="text" class="form-control" wire:model="department" id="department"
@@ -72,7 +64,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Exam Name</th>
-                        <th>Subject</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
@@ -85,8 +76,6 @@
                         <tr>
                             <td>{{ $exam->id }}</td>
                             <td>{{ $exam->exam_name }}</td>
-                            <td>{{ $exam->exam_code }}</td>
-                            <td>{{ $exam->subject }}</td>
                             <td>{{ $exam->exam_date }}</td>
                             <td>{{ $exam->exam_time }}</td>
                             <td>{{ $exam->status }}</td>
