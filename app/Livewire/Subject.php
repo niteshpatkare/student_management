@@ -31,7 +31,6 @@ class Subject extends Component
     public function save()
     {
         $this->validate(); // Validate the input
-
         if ($this->editingId) {
             // Update existing subject
             $subject = SubjectModel::find($this->editingId);

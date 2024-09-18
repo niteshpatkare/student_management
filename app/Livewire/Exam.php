@@ -17,7 +17,7 @@ class Exam extends Component
     protected $rules = [
         'exam_name' => 'required',
         'exam_code' => 'required',
-        'subject' => 'required',
+        // 'subject' => 'required',
         'department' => 'required',
         'exam_type' => 'required',
         'exam_date' => 'required|date',
@@ -56,7 +56,7 @@ class Exam extends Component
         return [
             'exam_name' => $this->exam_name,
             'exam_code' => $this->exam_code,
-            'subject' => $this->subject,
+            // 'subject' => $this->subject,
             'department' => $this->department,
             'exam_type' => $this->exam_type,
             'exam_date' => $this->exam_date,
@@ -73,7 +73,7 @@ class Exam extends Component
         $this->examId = $exam->id;
         $this->exam_name = $exam->exam_name;
         $this->exam_code = $exam->exam_code;
-        $this->subject = $exam->subject;
+        // $this->subject = $exam->subject;
         $this->department = $exam->department;
         $this->exam_type = $exam->exam_type;
         $this->exam_date = $exam->exam_date;
@@ -83,19 +83,6 @@ class Exam extends Component
         $this->status = $exam->status;
         $this->isEditing = true;
     }
-
-    // public function deleteExam($id)
-    // {
-    //     ExamModel::find($id)->delete();
-    // }
-
-    // protected $listeners = ['deleteConfirmed'=>'deleteExam'];
-
-    // public function delete($id){
-    //     $this->delete_id=$id;
-    //     $this->dispatch('show-delete-confirmation');
-
-    // }
 
     protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
@@ -117,7 +104,7 @@ class Exam extends Component
     {
         $this->exam_name = '';
         $this->exam_code = '';
-        $this->subject = '';
+        // $this->subject = '';
         $this->department = '';
         $this->exam_type = '';
         $this->exam_date = '';
@@ -130,7 +117,6 @@ class Exam extends Component
 
     public function render()
     {
-        //dd(Exam::all());
         return view('livewire.exam', ['exams' => ExamModel::all()]);
     }
 }
