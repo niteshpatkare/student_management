@@ -47,13 +47,9 @@
                 <h4>Students List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search students..." wire:model="searchTerm"
-                        wire:input="fetchStudents">
-                    {{-- <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i> 
-                    </button> --}}
+                        wire:input="searchTerm">
                 </div>
             </div>
-
 
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
@@ -90,6 +86,7 @@
                     </tbody>
                 </table>
             </div>
+            <div>{{ $students->links() }}</div>
         </div>
     </div>
 
@@ -120,7 +117,6 @@
             });
         });
     </script>
-
     <script>
         window.addEventListener('show-delete-confirmation-student', event => {
             Swal.fire({

@@ -11,6 +11,9 @@ class TeacherForm extends Component
     public $name, $email, $phone, $address, $qualification, $department, $hire_date, $status;
     public $editingId = null; // ID of the teacher being edited
     public $delete_id = null;
+
+    protected $listeners = ['deleteTeacherConfirm'=>'deleteTeacher'];
+
     protected $rules = [
         'name' => 'required|string',
         'email' => 'required|email',
@@ -83,7 +86,6 @@ class TeacherForm extends Component
         $this->status = $teacher->status;
     }
 
-    protected $listeners = ['deleteTeacherConfirm'=>'deleteTeacher'];
     
     public function dltTeacher($id)
     {

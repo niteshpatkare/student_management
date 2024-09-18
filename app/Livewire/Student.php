@@ -4,14 +4,18 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Student as StudentModel;
+use Livewire\WithPagination;
 
 class Student extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'Bootstrap';
+
     public $name, $email, $address, $mobile_no, $student_id;
-    public $students = [];
     public $searchTerm = '';
     public $delete_id;
 
+    protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
     protected function rules()
     {
         return [
@@ -22,66 +26,57 @@ class Student extends Component
         ];
     }
 
-    public function mount()
-    {
-        $this->fetchStudents();
-    }
-
-    // public function updatedSearchTerm()
-    // {
-    //     $this->fetchStudents();
-    // }
-
-    // public function search()
-    // {
-    //     $this->fetchStudents();
-    // }
-
-    public function fetchStudents()
-    {
-        $this->students = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->get();
-    }
-
     public function submit()
     {
         $this->validate();
-
         if ($this->student_id) {
-            $student = StudentModel::find($this->student_id);
-            $student->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'address' => $this->address,
-                'mobile_no' => $this->mobile_no,
-            ]);
-            $this->dispatch('studentEvent', ['status' => 1, 'message' => 'Data updated successfully!']);
+            $this->updateStudent();
         } else {
-            StudentModel::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'address' => $this->address,
-                'mobile_no' => $this->mobile_no,
-            ]);
-            $this->dispatch('studentEvent', ['status' => 2, 'message' => 'Data created successfully!']);
+            $this->createStudent(); 
         }
 
-        $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
-        // $this->fetchStudents();
+        $this->resetForm();
+    }
+
+    public function createStudent()
+    {
+        StudentModel::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'address' => $this->address,
+            'mobile_no' => $this->mobile_no,
+        ]);
+
+        $this->dispatch('studentEvent', ['status' => 2, 'message' => 'Data created successfully!']);
+    }
+
+    public function updateStudent()
+    {
+        $student = StudentModel::find($this->student_id);
+        $student->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'address' => $this->address,
+            'mobile_no' => $this->mobile_no,
+        ]);
+
+        $this->dispatch('studentEvent', ['status' => 1, 'message' => 'Data updated successfully!']);
     }
 
     public function edit($id)
     {
         $student = StudentModel::find($id);
+        $this->fillStudentData($student); // Use a separate function to fill data
+    }
+
+    public function fillStudentData($student)
+    {
         $this->student_id = $student->id;
         $this->name = $student->name;
         $this->email = $student->email;
         $this->address = $student->address;
         $this->mobile_no = $student->mobile_no;
     }
-
-    protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
 
     public function dltStudent($id)
     {
@@ -93,14 +88,25 @@ class Student extends Component
     {
         StudentModel::find($this->delete_id)->delete();
         $this->dispatch('studentEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
-        // $this->fetchStudents();
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
     }
 
     public function render()
     {
-        if($this->searchTerm){
-            $this->fetchStudents();
-        }
-        return view('livewire.student', ['students' => $this->students]);
+        if ($this->searchTerm)
+        {
+            $query = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+            // $students = $query->
+            ->paginate(5);
+        } else{
+            $students = StudentModel::paginate(5);
+        }    
+        return view('livewire.student', ['students' => $students]);
     }
 }
+

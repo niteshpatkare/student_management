@@ -15,6 +15,7 @@ class Subject extends Component
     public $delete_id;
     public $teach_details;
     
+    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject'];
 
     protected $rules = [
         'sub_name' => 'required|string',
@@ -75,7 +76,6 @@ public function mount()
         }
     }
 
-    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject', 'refreshTeacher'];
 
     public function delete($id){
         $this->delete_id=$id;
