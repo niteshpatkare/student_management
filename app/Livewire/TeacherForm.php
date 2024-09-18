@@ -7,8 +7,8 @@ use App\Models\Teacher; // Import the Teacher model
 
 class TeacherForm extends Component
 {
-    public $teachers; // List of teachers
-    public $name, $email, $phone, $address, $qualification, $department, $subject, $hire_date, $status;
+    public $teachers,$searchTerm; // List of teachers
+    public $name, $email, $phone, $address, $qualification, $department, $hire_date, $status;
     public $editingId = null; // ID of the teacher being edited
     public $delete_id = null;
     protected $rules = [
@@ -17,13 +17,19 @@ class TeacherForm extends Component
         'phone' => 'required|string',
         'address' => 'required|string',
         'qualification' => 'required|string',
-        'subject' => 'required|string',
         'hire_date' => 'required|date'
     ];
 
     public function mount()
     {
         $this->teachers = Teacher::all(); // Load all teachers
+    }
+
+    public function fetchTeachers()
+    {
+        $this->teachers = Teacher::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+            ->get();
     }
 
     public function save()
@@ -40,7 +46,6 @@ class TeacherForm extends Component
                 'address' => $this->address,
                 'qualification' => $this->qualification,
                 'department' => $this->department,
-                'subject' => $this->subject,
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
@@ -54,7 +59,6 @@ class TeacherForm extends Component
                 'address' => $this->address,
                 'qualification' => $this->qualification,
                 'department' => $this->department,
-                'subject' => $this->subject,
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
@@ -75,7 +79,6 @@ class TeacherForm extends Component
         $this->address = $teacher->address;
         $this->qualification = $teacher->qualification;
         $this->department = $teacher->department;
-        $this->subject = $teacher->subject;
         $this->hire_date = $teacher->hire_date;
         $this->status = $teacher->status;
     }
@@ -109,7 +112,6 @@ class TeacherForm extends Component
         $this->address = '';
         $this->qualification = '';
         $this->department = '';
-        $this->subject = '';
         $this->hire_date = '';
         $this->status = '';
         $this->editingId = null;
@@ -117,6 +119,9 @@ class TeacherForm extends Component
 
     public function render()
     {
+        if($this->searchTerm){
+            $this->fetchTeachers();
+        }
         return view('livewire.teacher-form');
     }
 }

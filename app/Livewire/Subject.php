@@ -4,13 +4,17 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Subject as SubjectModel;
+use App\Models\Teacher;
 
 class Subject extends Component
 {
     public $subjects; // List of subjects
     public $sub_name; // Subject name
+    public $teach_id; 
     public $editingId = null; // ID of the subject being edited
     public $delete_id;
+    public $teach_details;
+    
 
     protected $rules = [
         'sub_name' => 'required|string',
@@ -19,7 +23,9 @@ class Subject extends Component
     public function mount()
     {
         $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
-        //dd($this->subjects);
+        //dd($this->subjects,$this->subjects->first(),$this->subjects->first()->teacher);
+        $this->teach_details = Teacher::all();
+        //dd($teach_details);
     }
 
     public function save()
@@ -32,6 +38,7 @@ class Subject extends Component
             if ($subject) {
                 $subject->update([
                     'sub_name' => $this->sub_name,
+                    'teach_id' => $this->teach_id
                 ]);
                
                 $this->dispatch('subjectEvent', status: 1, message : 'Data updated successfully!');
@@ -41,7 +48,8 @@ class Subject extends Component
             // Create new subject
             //dd($this->sub_name);
             SubjectModel::create([
-                'sub_name' => $this->sub_name
+                'sub_name' => $this->sub_name,
+                'teach_id' => $this->teach_id
             ]);
             //session()->flash('message', 'Subject created successfully!');
             $this->dispatch('subjectEvent', status:2, message : 'Data created successfully!');
@@ -61,6 +69,7 @@ class Subject extends Component
         if ($subject) {
             $this->editingId = $id;
             $this->sub_name = $subject->sub_name;
+            $this->tech_id = $subject->teach_id;
         } else {
             session()->flash('error', 'Subject not found.');
         }
@@ -92,6 +101,7 @@ class Subject extends Component
     {
         $this->sub_name = '';
         $this->editingId = null;
+        $this->teach_id = null;
     }
 
     public function render()

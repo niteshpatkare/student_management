@@ -58,19 +58,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="teach_subject">Subject:</label>
-                    <select class="form-control" id="teach_subject" wire:model="subject">
-                        <option value="programming">Programming</option>
-                        <option value="data_structures">Data Structures</option>
-                        <option value="algorithms">Algorithms</option>
-                        <option value="web_development">Web Development</option>
-                        <option value="databases">Databases</option>
-                    </select>
-                    @error('subject')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+
                 <div class="form-group">
                     <label for="hire_date">Hire Date:</label>
                     <input type="date" class="form-control" id="hire_date" wire:model="hire_date">
@@ -93,8 +81,16 @@
 
         <!-- Data Table Section -->
         <div class="col-md-9 ">
-            <!-- <h2>Teacher List</h2>
-            <input type="text" class="form-control mb-3" placeholder="Search by name or email" wire:model="search"> -->
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Students List</h4>
+                <div class="input-group w-25">
+                    <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
+                        wire:input="fetchTeachers">
+                    {{-- <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i> 
+                    </button> --}}
+                </div>
+            </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -103,7 +99,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Department</th>
-                        <th>Subject</th>
+
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -116,7 +112,6 @@
                             <td>{{ $teacher->email }}</td>
                             <td>{{ $teacher->phone }}</td>
                             <td>{{ $teacher->department }}</td>
-                            <td>{{ $teacher->subject }}</td>
                             <td>{{ $teacher->status }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">

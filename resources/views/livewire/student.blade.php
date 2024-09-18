@@ -1,8 +1,7 @@
-<div class="container-fluild">
+<div class="container-fluid">
     <div class="row mt-5">
         <!-- Form Section -->
         <div class="col-md-3 p-4 shadow-sm bg-light bg-gradient">
-            <!-- <h4 class="mb-3">Add/Update Student</h4> -->
             <form wire:submit.prevent="submit">
                 <div class="mb-3">
                     <label for="stud_name" class="form-label">Student Name:</label>
@@ -41,9 +40,21 @@
             </form>
         </div>
 
-        <!-- Table Section -->
+        <!-- Table Section with Search -->
         <div class="col-md-9 shadow-sm bg-white">
-            <!-- <h4 class="mb-3">Students List</h4> -->
+            <!-- Search Input -->
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Students List</h4>
+                <div class="input-group w-25">
+                    <input type="text" class="form-control" placeholder="Search students..." wire:model="searchTerm"
+                        wire:input="fetchStudents">
+                    {{-- <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i> 
+                    </button> --}}
+                </div>
+            </div>
+
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
@@ -58,16 +69,16 @@
                     <tbody>
                         @forelse ($students as $student)
                             <tr>
-                                <th scope="row">{{ $student['id'] }}</th>
-                                <td>{{ $student['name'] }}</td>
-                                <td>{{ $student['email'] }}</td>
-                                <td>{{ $student['mobile_no'] }}</td>
+                                <th scope="row">{{ $student->id }}</th>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->email }}</td>
+                                <td>{{ $student->mobile_no }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm"
-                                            wire:click="edit({{ $student['id'] }})">Edit</button>
+                                            wire:click="edit({{ $student->id }})">Edit</button>
                                         <button class="btn btn-outline-primary btn-sm"
-                                            wire:click="dltStudent({{ $student['id'] }})">Delete</button>
+                                            wire:click="dltStudent({{ $student->id }})">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -81,40 +92,37 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('livewire:init', () => {
             Livewire.on('studentEvent', (data) => {
-                //console.log(data.message);
-                // Trigger IziToast notification immediately with the received message
                 if (data.status == 1) {
                     iziToast.info({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
-
             });
         });
     </script>
 
     <script>
         window.addEventListener('show-delete-confirmation-student', event => {
-            //alert("Okay1");
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -128,7 +136,6 @@
                     Livewire.dispatch('deleteStudentConfirm')
                 }
             });
-
         });
     </script>
 </div>
