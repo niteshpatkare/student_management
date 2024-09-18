@@ -4,11 +4,18 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Student as StudentModel;
+use Livewire\WithPagination;
+
 
 class Student extends Component
 {
+    use WithPagination;
+    protected $paginationTheme='Bootstrap';
+   
+    
+ 
     public $name, $email, $address, $mobile_no, $student_id;
-    public $students = [];
+ 
     public $searchTerm = '';
     public $delete_id;
 
@@ -22,27 +29,7 @@ class Student extends Component
         ];
     }
 
-    public function mount()
-    {
-        $this->fetchStudents();
-    }
-
-    // public function updatedSearchTerm()
-    // {
-    //     $this->fetchStudents();
-    // }
-
-    // public function search()
-    // {
-    //     $this->fetchStudents();
-    // }
-
-    public function fetchStudents()
-    {
-        $this->students = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->get();
-    }
+    
 
     public function submit()
     {
@@ -98,9 +85,12 @@ class Student extends Component
 
     public function render()
     {
-        if($this->searchTerm){
-            $this->fetchStudents();
-        }
-        return view('livewire.student', ['students' => $this->students]);
+        //if($this->searchTerm){
+            $students = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+            ->paginate(2);
+        //}
+        return view('livewire.student', ['students' => $students]);
+        
     }
 }

@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="selectstudent">Select Student</label>
                     
-                        <select class="form-control" id="selectstudent" wire:model="stud__id">
+                        <select class="form-control" id="selectstudent" wire:model="stud_id">
                         
                             <option value="">Select Student</option>
                             @foreach($stud_details as $stud_detail)
@@ -60,6 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                             
                     </tbody>
                 </table>

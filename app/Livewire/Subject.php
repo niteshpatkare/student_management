@@ -8,10 +8,10 @@ use App\Models\Teacher;
 
 class Subject extends Component
 {
-    public $subjects; // List of subjects
-    public $sub_name; // Subject name
+    public $subjects; 
+    public $sub_name; 
     public $teach_id; 
-    public $editingId = null; // ID of the subject being edited
+    public $editingId = null;
     public $delete_id;
     public $teach_details;
     
@@ -22,9 +22,8 @@ class Subject extends Component
 public function mount()
     {
         $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
-        //dd($this->subjects,$this->subjects->first(),$this->subjects->first()->teacher);
         $this->teach_details = Teacher::all();
-        //dd($teach_details);
+      
     }
     
 
@@ -45,13 +44,11 @@ public function mount()
                 
             } 
         } else {
-            // Create new subject
-            //dd($this->sub_name);
+            
             SubjectModel::create([
                 'sub_name' => $this->sub_name,
                 'teach_id' => $this->teach_id
             ]);
-            //session()->flash('message', 'Subject created successfully!');
             $this->dispatch('subjectEvent', status:2, message : 'Data created successfully!');
             
         

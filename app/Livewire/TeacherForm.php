@@ -4,10 +4,15 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Teacher; // Import the Teacher model
+use Livewire\WithPagination;
 
 class TeacherForm extends Component
 {
-    public $teachers,$searchTerm; // List of teachers
+
+    use WithPagination;
+    protected $paginationTheme='Bootstrap';
+
+    public $teachers, $searchTerm; // List of teachers
     public $name, $email, $phone, $address, $qualification, $department, $hire_date, $status;
     public $editingId = null; // ID of the teacher being edited
     public $delete_id = null;
@@ -22,15 +27,16 @@ class TeacherForm extends Component
 
     public function mount()
     {
-        $this->teachers = Teacher::all(); // Load all teachers
+        $this->teachers = Teacher::select('id', 'name','email','phone','department','status')->paginate(2);
+        
     }
 
-    public function fetchTeachers()
-    {
-        $this->teachers = Teacher::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->get();
-    }
+    // public function fetchTeachers()
+    // {
+    //     $this->teachers = Teacher::where('name', 'like', '%' . $this->searchTerm . '%')
+    //         ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+    //         ->get();
+    // }
 
     public function save()
     {
@@ -117,11 +123,25 @@ class TeacherForm extends Component
         $this->editingId = null;
     }
 
+
+    public function fetchTeachers()
+    {
+        
+
+        if ($this->searchTerm) {
+            $this->teachers->where('name', 'like', '%' . $this->searchTerm . '%')
+                  ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
+        }
+
+        return $this->teachers->paginate(2); // Pagination size can be adjusted
+      
+    }
+
     public function render()
     {
-        if($this->searchTerm){
-            $this->fetchTeachers();
-        }
-        return view('livewire.teacher-form');
+    
+        $teachers = $this->fetchTeachers(); // Get paginated results
+        //dd($teachers);
+        return view('livewire.teacher-form', ['teachers' => $teachers] );
     }
 }

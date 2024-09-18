@@ -105,7 +105,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($teachers as $teacher)
+                    @foreach($teachers as $teacher)
                         <tr>
                             <td>{{ $teacher->id }}</td>
                             <td>{{ $teacher->name }}</td>
@@ -129,6 +129,9 @@
                     @endforelse
                 </tbody>
             </table>
+                    <div>
+                        {{ $teachers->links() }}
+                    </div>
 
         </div>
     </div>
