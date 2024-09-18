@@ -19,6 +19,7 @@ class Teacher extends Model
         'department',
         'hire_date',
         'status',
+        'is_active'
     ];
 
     public function subjects(): HasMany

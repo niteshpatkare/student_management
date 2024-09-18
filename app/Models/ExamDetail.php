@@ -12,6 +12,7 @@ use App\Models\Student as StudentModel;
 class ExamDetail extends Model
 {
     use HasFactory;
+    protected $table = 'examdetails';
     protected $fillable = [
         'exam_id', 'stud_id', 'sub_id'
     ];

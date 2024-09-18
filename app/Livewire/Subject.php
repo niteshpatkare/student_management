@@ -19,14 +19,14 @@ class Subject extends Component
     protected $rules = [
         'sub_name' => 'required|string',
     ];
-
-    public function mount()
+public function mount()
     {
         $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
         //dd($this->subjects,$this->subjects->first(),$this->subjects->first()->teacher);
         $this->teach_details = Teacher::all();
         //dd($teach_details);
     }
+    
 
     public function save()
     {
@@ -76,7 +76,7 @@ class Subject extends Component
         }
     }
 
-    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject'];
+    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject', 'refreshTeacher'];
 
     public function delete($id){
         $this->delete_id=$id;
@@ -103,6 +103,11 @@ class Subject extends Component
         $this->sub_name = '';
         $this->editingId = null;
         $this->teach_id = null;
+    }
+
+    public function refreshTeacher(){
+        $this->teach_details = Teacher::all();
+
     }
 
     public function render()

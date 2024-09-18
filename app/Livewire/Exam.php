@@ -8,7 +8,7 @@ use App\Models\Subject as SubjectModel;
 
 class Exam extends Component
 {
-    public $exam_name, $exam_code, $subject, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
+    public $exam_name, $exam_code, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
     public $delete_id;
     public $sub_details;
@@ -17,7 +17,6 @@ class Exam extends Component
     protected $rules = [
         'exam_name' => 'required',
         'exam_code' => 'required',
-        'subject' => 'required',
         'department' => 'required',
         'exam_type' => 'required',
         'exam_date' => 'required|date',
@@ -56,7 +55,6 @@ class Exam extends Component
         return [
             'exam_name' => $this->exam_name,
             'exam_code' => $this->exam_code,
-            'subject' => $this->subject,
             'department' => $this->department,
             'exam_type' => $this->exam_type,
             'exam_date' => $this->exam_date,
@@ -73,7 +71,6 @@ class Exam extends Component
         $this->examId = $exam->id;
         $this->exam_name = $exam->exam_name;
         $this->exam_code = $exam->exam_code;
-        $this->subject = $exam->subject;
         $this->department = $exam->department;
         $this->exam_type = $exam->exam_type;
         $this->exam_date = $exam->exam_date;
@@ -117,7 +114,6 @@ class Exam extends Component
     {
         $this->exam_name = '';
         $this->exam_code = '';
-        $this->subject = '';
         $this->department = '';
         $this->exam_type = '';
         $this->exam_date = '';

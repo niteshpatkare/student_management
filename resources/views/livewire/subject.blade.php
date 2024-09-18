@@ -110,10 +110,7 @@
 
     <script>
         window.addEventListener('show-delete-confirmation-subject', event => {
-<<<<<<< HEAD
         //alert("Okay1");
-=======
->>>>>>> 9eee503cec9bb872a2ecbeded48888c389f1fd96
             Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -129,7 +126,12 @@
             });
 
         });
+
+        function refreshTeacher(){
+            @this.refreshTeacher();
+        }
     </script>
+    
            
 
 </div>
