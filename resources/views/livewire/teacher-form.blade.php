@@ -85,7 +85,7 @@
                 <h4>Students List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
-                        wire:input="fetchTeachers">
+                        wire:input="searchTerm">
                     {{-- <button class="btn btn-outline-secondary" type="button">
                         <i class="fas fa-search"></i> 
                     </button> --}}
@@ -129,7 +129,7 @@
                     @endforelse
                 </tbody>
             </table>
-
+            <div>{{ $teachers->links() }}</div>
         </div>
     </div>
     <script>
