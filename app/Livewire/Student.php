@@ -97,15 +97,10 @@ class Student extends Component
 
     public function render()
     {
-        if ($this->searchTerm)
-        {
-            $query = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            // $students = $query->
-            ->paginate(5);
-        } else{
-            $students = StudentModel::paginate(5);
-        }    
+        $query = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
+
+        $students = $query->paginate(5);
         return view('livewire.student', ['students' => $students]);
     }
 }
