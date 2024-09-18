@@ -10,7 +10,7 @@ use App\Models\ExamDetail;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','email','address','mobile_no'];
+    protected $fillable = ['name','email','address','mobile_no', 'is_active'];
 
     public function examsdetailHasMany(): HasMany
     {
