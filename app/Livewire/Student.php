@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -9,21 +8,27 @@ use Livewire\WithPagination;
 class Student extends Component
 {
     use WithPagination;
-    protected $paginationTheme = 'Bootstrap';
+    protected $paginationTheme = 'bootstrap';
 
     public $name, $email, $address, $mobile_no, $student_id;
     public $searchTerm = '';
     public $delete_id;
 
     protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
+
     protected function rules()
     {
         return [
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => 'required|email|unique:students,email,' . $this->student_id,
             'address' => 'required|string|max:255',
-            'mobile_no' => 'required|string|max:10',
+            'mobile_no' => 'required|string|max:10|min:10',
         ];
+    }
+
+    public function mount()
+    {
+        // Initialize anything if necessary
     }
 
     public function submit()
@@ -66,7 +71,7 @@ class Student extends Component
     public function edit($id)
     {
         $student = StudentModel::find($id);
-        $this->fillStudentData($student); // Use a separate function to fill data
+        $this->fillStudentData($student); 
     }
 
     public function fillStudentData($student)
@@ -95,12 +100,20 @@ class Student extends Component
         $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
     }
 
+    public function fetchStudents()
+    {
+        if ($this->searchTerm) {
+            return StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
+                ->paginate(5);
+        } else {
+            return StudentModel::paginate(5);
+        }
+    }
+
     public function render()
     {
-        $query = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
-
-        $students = $query->paginate(5);
+        $students = $this->fetchStudents();
         return view('livewire.student', ['students' => $students]);
     }
 }

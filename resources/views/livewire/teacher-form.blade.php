@@ -82,13 +82,10 @@
         <!-- Data Table Section -->
         <div class="col-md-9 ">
             <div class="d-flex justify-content-between mb-3">
-                <h4>Students List</h4>
+                <h4>Teacher List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
-                        wire:input="searchTerm">
-                    {{-- <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i> 
-                    </button> --}}
+                        wire:input="fetchTeachers">
                 </div>
             </div>
             <table class="table table-striped table-bordered table-hover">
