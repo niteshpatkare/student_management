@@ -24,7 +24,6 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
-
                 @livewire('student')
             </div>
             <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
