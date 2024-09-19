@@ -14,7 +14,7 @@ class ExamDetail extends Model
     use HasFactory;
     protected $table = 'examdetails';
     protected $fillable = [
-        'exam_id', 'stud_id', 'sub_id'
+        'exam_id', 'sub_id', 'stud_id'
     ];
 
     public function examBelongsTo(): BelongsTo

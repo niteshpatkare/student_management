@@ -3,20 +3,24 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Teacher; // Import the Teacher model
 use Livewire\WithPagination;
-use App\Models\Teacher as TeacherModel;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class TeacherForm extends Component
 {
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap'; 
 
-    public $searchTerm;
+    use WithPagination;
+    protected $paginationTheme='Bootstrap';
+
+    protected $teachers; 
+    public $searchTerm; // List of teachers
     public $name, $email, $phone, $address, $qualification, $department, $hire_date, $status;
-    public $editingId = null; 
+    public $editingId = null; // ID of the teacher being edited
     public $delete_id = null;
 
-    protected $listeners = ['deleteTeacherConfirm' => 'deleteTeacher'];
+    protected $listeners = ['deleteTeacherConfirm'=>'deleteTeacher'];
 
     protected $rules = [
         'name' => 'required|string',
@@ -27,17 +31,25 @@ class TeacherForm extends Component
         'hire_date' => 'required|date'
     ];
 
-    public function updatedSearchTerm()
+    public function mount()
     {
-        $this->resetPage(); 
+        //$this->fetchTeachers();
+        $this->fetchstudentdata();
+        //dd($this->teachers);
     }
+
+    public function fetchstudentdata(){
+        $this->teachers = Teacher::select('id','name','email','phone','department','status'); // Load all teachers //prevcode
+    }
+    
 
     public function save()
     {
         $this->validate();
 
         if ($this->editingId) {
-            $teacher = TeacherModel::find($this->editingId);
+            // Update existing teacher
+            $teacher = Teacher::find($this->editingId);
             $teacher->update([
                 'name' => $this->name,
                 'email' => $this->email,
@@ -48,9 +60,10 @@ class TeacherForm extends Component
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
-            $this->dispatch('teacherEvent', ['status' => 1, 'message' => 'Data updated successfully!']);
+            $this->dispatch('teacherEvent', status: 1, message : 'Data updated successfully!');
         } else {
-            TeacherModel::create([
+            // Create new teacher
+            Teacher::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'phone' => $this->phone,
@@ -60,16 +73,16 @@ class TeacherForm extends Component
                 'hire_date' => $this->hire_date,
                 'status' => $this->status,
             ]);
-            $this->dispatch('teacherEvent', ['status' => 2, 'message' => 'Data created successfully!']);
+            $this->dispatch('teacherEvent', status:2, message : 'Data created successfully!');
         }
 
         $this->resetFields();
-        $this->resetPage();
+        $this->fetchstudentdata();; // Refresh the list of teachers
     }
 
     public function edit($id)
     {
-        $teacher = TeacherModel::find($id);
+        $teacher = Teacher::find($id);
         $this->editingId = $id;
         $this->name = $teacher->name;
         $this->email = $teacher->email;
@@ -81,17 +94,20 @@ class TeacherForm extends Component
         $this->status = $teacher->status;
     }
 
+    
     public function dltTeacher($id)
     {
-        $this->delete_id = $id;
+        $this->delete_id=$id;
         $this->dispatch('show-delete-confirmation-teacher');
+        
     }
 
     public function deleteTeacher()
     {
-        TeacherModel::find($this->delete_id)->delete();
-        $this->dispatch('teacherEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
-        $this->resetPage();
+        $teacher = Teacher::find($this->delete_id)->delete();
+        
+        $this->dispatch('teacherEvent', status:3, message : 'Data deleted successfully!');
+        $this->fetchstudentdata(); // Refresh the list of teachers
     }
 
     private function resetFields()
@@ -107,20 +123,33 @@ class TeacherForm extends Component
         $this->editingId = null;
     }
 
-    public function fetchTeachers()
-    {
-        if ($this->searchTerm) {
-            return TeacherModel::where('name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-                ->paginate(5);
-        } else {
-            return TeacherModel::paginate(5);
+    public function fetchTeachers(){
+        if($this->searchTerm){
+            $this->fetchstudentdata();
+            $this->teachers = $this->teachers->where(function (Builder $subQuery) {
+                $subQuery->Where('name', 'LIKE', "%{$this->searchTerm}%")
+                 ->orWhere('email', 'LIKE', "%{$this->searchTerm}%");
+            });
+            // $this->teachers = $this->teachers->where('name', 'like', '%' . $this->searchTerm . '%')
+            // ->orWhere('email', 'like', '%' . $this->searchTerm . '%');
         }
+       
+    }
+
+    public function updatingData()
+    {
+        $this->resetPage();
     }
 
     public function render()
     {
-        $teachers = $this->fetchTeachers();
-        return view('livewire.teacher-form', ['teachers' => $teachers]);
+        $this->fetchstudentdata();
+        if($this->searchTerm){
+            $this->fetchTeachers();
+        }
+        $teachersdt= $this->teachers->paginate(5);
+         return view('livewire.teacher-form', [
+            'teachers' => $teachersdt
+        ]);
     }
 }

@@ -22,6 +22,8 @@
 </head>
 
 <body>
+
+
         <h1 style="text-align:center">Student management System</h1>
         <hr />
         {{ $slot }}

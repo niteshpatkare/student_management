@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Exam as ExamModel;
 use App\Models\Subject as SubjectModel;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class Exam extends Component
@@ -17,6 +18,7 @@ class Exam extends Component
     public $isEditing = false;
     public $delete_id,$searchTerm;
     public $sub_details;
+    protected $exams;
 
     protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
@@ -34,16 +36,27 @@ class Exam extends Component
 
     public function mount(){
         //$sub_details=SubjectModel::find(1);
+        $this->fetchexamsdata();
         //dd($sub_details->sub_name);
+    }
+
+    public function fetchexamsdata(){
+        $this->exams = ExamModel::select('id','exam_name','exam_date','exam_time','status')->where('is_active', 1); // Load all teachers //prevcode
     }
 
     public function fetchExams()
     {
-        $this->exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
-            // ->get();
-            ->paginate(5);
+        if($this->searchTerm){
+            $this->fetchexamsdata();
+
+            $this->exams =  $this->exams->where(function (Builder $subQuery){
+                $subQuery->Where('exam_name', 'LIKE', "%{$this->searchTerm}%")
+                    ->orWhere('status', 'LIKE', "%{$this->searchTerm}%");
+            });
+        }
+            
     }
+
   
     public function createOrUpdateExam()
     {
@@ -102,7 +115,7 @@ class Exam extends Component
 
     public function deleteExam()
     {
-        $exam = ExamModel::find($this->delete_id)->delete();
+        $exam = ExamModel::find($this->delete_id)->update(['is_active' => 0]);
 
         $this->dispatch('ExamEvent', status: 3, message : 'Data deleted successfully!');
         $this->exams = ExamModel::all();
@@ -124,13 +137,12 @@ class Exam extends Component
 
     public function render()
     {
+        $this->fetchexamsdata();
         if ($this->searchTerm) {
-            $exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
-                ->paginate(5);  
-        } else {
-            $exams = ExamModel::paginate(5);  
-        }
-        return view('livewire.exam', ['exams' => $exams]);
+            $this->fetchExams(); 
+        } 
+        $examsdt= $this->exams->paginate(10);
+        return view('livewire.exam', ['exams' => $examsdt]);
     }
+    
 }

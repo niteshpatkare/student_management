@@ -52,7 +52,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -73,7 +73,7 @@
                                     <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm"
                                             wire:click="edit({{ $student->id }})">Edit</button>
-                                        <button class="btn btn-outline-primary btn-sm"
+                                        <button class="btn btn-outline-danger btn-sm"
                                             wire:click="dltStudent({{ $student->id }})">Delete</button>
                                     </div>
                                 </td>
@@ -84,9 +84,13 @@
                             </tr>
                         @endforelse
                     </tbody>
+                   
                 </table>
+                    
+                        {{ $students->links() }}
+                    
             </div>
-            <div>{{ $students->links() }}</div>
+            
         </div>
     </div>
 
@@ -134,4 +138,6 @@
             });
         });
     </script>
+
+    
 </div>

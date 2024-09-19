@@ -45,7 +45,7 @@
 
             <!-- Data Table Section -->
             <div class="col-md-9">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -64,7 +64,7 @@
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="editButton"
                                             wire:click="edit({{ $subject->id }})">Edit</button>
-                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
                                             wire:click="delete({{ $subject->id }})">Delete</button>
                                     </div>
                                 </td>
