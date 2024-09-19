@@ -102,6 +102,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                   @if($teachers) 
                     @forelse($teachers as $teacher)
                         <tr>
                             <td>{{ $teacher->id }}</td>
@@ -124,6 +125,7 @@
                             <td colspan="8" class="text-center">No Teachers Available</td>
                         </tr>
                     @endforelse
+                   @endif 
                 </tbody>
             </table>
             <div>{{ $teachers->links() }}</div>

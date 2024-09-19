@@ -24,7 +24,6 @@ class Subject extends Component
     {
         $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); // Load all subjects initially
         $this->teach_details = Teacher::all();
-      
     }
     
 
