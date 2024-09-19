@@ -136,10 +136,10 @@ class TeacherForm extends Component
        
     }
 
-    public function updatingData()
-    {
-        $this->resetPage();
-    }
+    // public function updatingData()
+    // {
+    //     $this->resetPage();
+    // }
 
     public function render()
     {
