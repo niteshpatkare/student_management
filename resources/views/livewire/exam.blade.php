@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" wire:model="exam_code" id="exam_code"
                         placeholder="Enter exam code">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="department">Department:</label>
                     <input type="text" class="form-control" wire:model="department" id="department"
@@ -59,6 +59,13 @@
         </div>
 
         <div class="col-md-9">
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Exam List</h4>
+                <div class="input-group w-25">
+                    <input type="text" class="form-control" placeholder="Search exams..." wire:model="searchTerm"
+                        wire:input="fetchExams">
+                </div>
+            </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -95,7 +102,7 @@
                     @endforelse
                 </tbody>
             </table>
-
+            <div>{{ $exams->links() }}</div>
         </div>
     </div>
     <script>

@@ -81,7 +81,7 @@
 
         <!-- Data Table Section -->
         <div class="col-md-9 ">
-            <div class="d-flex justify-content-between mb-3">
+            <!-- <div class="d-flex justify-content-between mb-3">
                 <h4>Students List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
@@ -90,7 +90,7 @@
                         <i class="fas fa-search"></i> 
                     </button> --}}
                 </div>
-            </div>
+            </div> -->
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -105,6 +105,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                   
                     @foreach($teachers as $teacher)
                         <tr>
                             <td>{{ $teacher->id }}</td>
@@ -122,17 +123,11 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">No Teachers Available</td>
-                        </tr>
-                    @endforelse
+                    
+                    @endforeach
                 </tbody>
             </table>
-                    <div>
-                        {{ $teachers->links() }}
-                    </div>
-
+                {{$teachers->links()}}
         </div>
     </div>
     <script>

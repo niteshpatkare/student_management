@@ -5,14 +5,20 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Exam as ExamModel;
 use App\Models\Subject as SubjectModel;
+use Livewire\WithPagination;
+
 
 class Exam extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'Bootstrap';
+
     public $exam_name, $exam_code, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
-    public $delete_id;
+    public $delete_id,$searchTerm;
     public $sub_details;
 
+    protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
     protected $rules = [
         'exam_name' => 'required',
@@ -31,7 +37,13 @@ class Exam extends Component
         //dd($sub_details->sub_name);
     }
 
-
+    public function fetchExams()
+    {
+        $this->exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
+            // ->get();
+            ->paginate(5);
+    }
   
     public function createOrUpdateExam()
     {
@@ -81,7 +93,6 @@ class Exam extends Component
         $this->isEditing = true;
     }
 
-    protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
 
     public function dltExam($id)
     {
@@ -113,6 +124,13 @@ class Exam extends Component
 
     public function render()
     {
-        return view('livewire.exam', ['exams' => ExamModel::all()]);
+        if ($this->searchTerm) {
+            $exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
+                ->paginate(5);  
+        } else {
+            $exams = ExamModel::paginate(5);  
+        }
+        return view('livewire.exam', ['exams' => $exams]);
     }
 }
