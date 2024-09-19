@@ -6,16 +6,17 @@ use Livewire\Component;
 use App\Models\Exam as ExamModel;
 use App\Models\Subject as SubjectModel;
 use Livewire\WithPagination;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class Exam extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'Bootstrap';
-
+    protected $exams;
+    public $searchTerm = '';
     public $exam_name, $exam_code, $teacher, $department, $exam_type, $exam_date, $exam_time, $duration, $location, $max_marks, $passing_marks, $instructions, $status, $examId;
     public $isEditing = false;
-    public $delete_id,$searchTerm;
+    public $delete_id;
     public $sub_details;
 
     protected $listeners = ['deleteExamConfirmed'=>'deleteExam'];
@@ -33,16 +34,11 @@ class Exam extends Component
     ];
 
     public function mount(){
-        //$sub_details=SubjectModel::find(1);
-        //dd($sub_details->sub_name);
+        $this->fetchExamsdata();
     }
 
-    public function fetchExams()
-    {
-        $this->exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
-            // ->get();
-            ->paginate(5);
+    public function fetchExamsdata(){
+        $this->exams = ExamModel::select('id','exam_name','exam_date','exam_time'); 
     }
   
     public function createOrUpdateExam()
@@ -122,15 +118,24 @@ class Exam extends Component
         $this->isEditing = false;
     }
 
+    public function fetchExams()
+    {
+        if($this->searchTerm){
+            $this->fetchExamsdata();
+            $this->exams = $this->exams->where(function (Builder $subQuery) {
+                $subQuery->Where('exam_name', 'LIKE', "%{$this->searchTerm}%")
+                 ->orWhere('status', 'LIKE', "%{$this->searchTerm}%");
+            });
+        }    
+    }
+
     public function render()
     {
-        if ($this->searchTerm) {
-            $exams = ExamModel::where('exam_name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('status', 'like', '%' . $this->searchTerm . '%')
-                ->paginate(5);  
-        } else {
-            $exams = ExamModel::paginate(5);  
+        $this->fetchExamsdata();
+        if($this->searchTerm){
+            $this->fetchExams();
         }
-        return view('livewire.exam', ['exams' => $exams]);
+        $examdt= $this->exams->paginate(5);
+        return view('livewire.exam', ['exams' => $examdt]);
     }
 }

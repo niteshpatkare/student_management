@@ -73,7 +73,7 @@
                                     <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm"
                                             wire:click="edit({{ $student->id }})">Edit</button>
-                                        <button class="btn btn-outline-primary btn-sm"
+                                        <button class="btn btn-outline-danger btn-sm"
                                             wire:click="dltStudent({{ $student->id }})">Delete</button>
                                     </div>
                                 </td>

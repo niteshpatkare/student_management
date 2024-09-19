@@ -114,7 +114,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                         wire:click="edit({{ $teacher->id }})">Edit</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                    <button type="button" class="btn btn-outline-danger btn-sm"
                                         wire:click="dltTeacher({{ $teacher->id }})">Delete</button>
                                 </div>
                             </td>

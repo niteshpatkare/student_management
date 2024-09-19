@@ -1,6 +1,6 @@
 <div>
-    <div class="container-fluid ">
-        <!-- Display success and error messages -->
+    <div class="container-fluid">
+        <!-- Display success and error messages from sessions -->
         @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
@@ -20,21 +20,19 @@
                     <div class="form-group">
                         <label for="sub_name">Subject Name</label>
                         <input type="text" class="form-control" id="sub_name" wire:model="sub_name"
-                            placeholder="Enter subject name">
+                               placeholder="Enter subject name">
+                        @error('sub_name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                    <label for="teach_subject">Teacher:</label>
-                   
-                    <select class="form-control" id="teach_subject" wire:model="teach_id">
-                    
-                        <option value="">Select Subject</option>
-                        @foreach($teach_details as $teach_detail)
-                        <option value="{{$teach_detail->id}}">{{$teach_detail->name}}</option>
-                        @endforeach
-                    </select>
-                   
-                    
-                </div>
+                        <label for="teach_subject">Teacher</label>
+                        <select class="form-control" id="teach_subject" wire:model="teach_id">
+                            <option value="">Select Teacher</option>
+                            @foreach($teach_details as $teach_detail)
+                                <option value="{{ $teach_detail->id }}">{{ $teach_detail->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('teach_id') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">
                             {{ $editingId ? 'Update Subject' : 'Add Subject' }}
@@ -59,19 +57,19 @@
                             <tr>
                                 <th scope="row">{{ $subject->id }}</th>
                                 <td>{{ $subject->sub_name }}</td>
-                                <td>{{ $subject->teacher->name }}</td>
+                                <td>{{ $subject->teacher ? $subject->teacher->name : 'No Teacher Assigned' }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" id="editButton"
-                                            wire:click="edit({{ $subject->id }})">Edit</button>
-                                        <button type="button" class="btn btn-outline-primary btn-sm"
-                                            wire:click="delete({{ $subject->id }})">Delete</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" 
+                                                wire:click="edit({{ $subject->id }})">Edit</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                                wire:click="delete({{ $subject->id }})">Delete</button>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">No subjects found.</td>
+                                <td colspan="4">No subjects found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -79,40 +77,36 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('livewire:init', () => {
             Livewire.on('subjectEvent', (data) => {
-                //console.log(data.message);
-                // Trigger IziToast notification immediately with the received message
+                // Trigger IziToast notification with the received message
                 if (data.status == 1) {
                     iziToast.info({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
                 if (data.status == 2) {
                     iziToast.success({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
                 if (data.status == 3) {
                     iziToast.success({
                         timeout: 2000,
                         position: "topRight",
-                        message: data.message, // Accessing the message from the event data
+                        message: data.message,
                     });
                 }
-
             });
         });
-    </script>
 
-    <script>
         window.addEventListener('show-delete-confirmation-subject', event => {
-        //alert("Okay1");
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -123,18 +117,13 @@
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteSubjectConfirm')
+                    Livewire.dispatch('deleteSubjectConfirm');
                 }
             });
-
         });
 
-        function refreshTeacher(){
+        function refreshTeacher() {
             @this.refreshTeacher();
         }
     </script>
-    
-           
-
-
 </div>

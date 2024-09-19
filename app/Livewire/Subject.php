@@ -8,30 +8,31 @@ use App\Models\Teacher;
 
 class Subject extends Component
 {
-    public $subjects; // List of subjects
-    public $sub_name; // Subject name
-    public $teach_id; 
-    public $editingId = null; // ID of the subject being edited
+    public $subjects; 
+    public $sub_name;     
+    public $teach_id;
+    public $editingId = null; 
     public $delete_id;
     public $teach_details;
     
-    protected $listeners = ['deleteSubjectConfirm'=>'deleteSubject'];
+    protected $listeners = ['deleteSubjectConfirm' => 'deleteSubject'];
 
     protected $rules = [
         'sub_name' => 'required|string',
+        'teach_id' => 'required|exists:teachers,id', // Added validation for teacher ID
     ];
-public function mount()
+    
+    public function mount()
     {
-        $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
-        //dd($this->subjects,$this->subjects->first(),$this->subjects->first()->teacher);
-        $this->teach_details = Teacher::all();
-        //dd($teach_details);
+        // Eager load the related teacher for subjects
+        $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); 
+        $this->teach_details = Teacher::all(); // Load all teachers
     }
     
-
     public function save()
     {
-        $this->validate(); // Validate the input
+        $this->validate(); 
+
         if ($this->editingId) {
             // Update existing subject
             $subject = SubjectModel::find($this->editingId);
@@ -39,28 +40,23 @@ public function mount()
             if ($subject) {
                 $subject->update([
                     'sub_name' => $this->sub_name,
-                    'teach_id' => $this->teach_id
+                    'teach_id' => $this->teach_id,
                 ]);
                
-                $this->dispatch('subjectEvent', status: 1, message : 'Data updated successfully!');
-                
+                $this->dispatch('subjectEvent', ['status' => 1, 'message' => 'Data updated successfully!']);
             } 
         } else {
-            // Create new subject
-            //dd($this->sub_name);
+            // Create a new subject
             SubjectModel::create([
                 'sub_name' => $this->sub_name,
-                'teach_id' => $this->teach_id
+                'teach_id' => $this->teach_id,
             ]);
-            //session()->flash('message', 'Subject created successfully!');
-            $this->dispatch('subjectEvent', status:2, message : 'Data created successfully!');
-            
-        
+
+            $this->dispatch('subjectEvent', ['status' => 2, 'message' => 'Data created successfully!']);
         }
 
         $this->resetFields();
-        $this->subjects = SubjectModel::where('is_active', 1)->get();
-        //$this->subjects = SubjectModel::all(); // Refresh the list of subjects
+        $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); // Refresh with eager loading
     }
 
     public function edit($id)
@@ -70,31 +66,24 @@ public function mount()
         if ($subject) {
             $this->editingId = $id;
             $this->sub_name = $subject->sub_name;
-            $this->tech_id = $subject->teach_id;
+            $this->teach_id = $subject->teach_id;
         } else {
             session()->flash('error', 'Subject not found.');
         }
     }
 
-
-    public function delete($id){
-        $this->delete_id=$id;
+    public function delete($id)
+    {
+        $this->delete_id = $id;
         $this->dispatch('show-delete-confirmation-subject');
-
     }
 
     public function deleteSubject()
     {
-        
-        $subject = SubjectModel::find($this->delete_id)->update(['is_active' => 0]);
-        //$subject = SubjectModel::find($this->delete_id)->delete();
+        SubjectModel::find($this->delete_id)->update(['is_active' => 0]); // Soft delete by updating 'is_active'
 
-        //session()->flash('message', 'Subject deleted successfully!');
-        $this->dispatch('subjectEvent', status:3, message : 'Data deleted successfully!');
-            
-
-        //$this->subjects = SubjectModel::all(); // Refresh the list of subjects
-        $this->subjects = SubjectModel::where('is_active', 1)->get();
+        $this->dispatch('subjectEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
+        $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); // Refresh with eager loading
     }
 
     private function resetFields()
@@ -104,14 +93,13 @@ public function mount()
         $this->teach_id = null;
     }
 
-    public function refreshTeacher(){
-        $this->teach_details = Teacher::all();
-
+    public function refreshTeacher()
+    {
+        $this->teach_details = Teacher::all(); // Reload teacher details
     }
 
     public function render()
     {
         return view('livewire.subject');
     }
-    
 }
