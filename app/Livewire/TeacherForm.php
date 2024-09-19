@@ -36,6 +36,7 @@ class TeacherForm extends Component
         //$this->fetchTeachers();
         $this->fetchstudentdata();
         //dd($this->teachers);
+        $this->resetPage();
     }
 
     public function fetchstudentdata(){
@@ -136,10 +137,10 @@ class TeacherForm extends Component
        
     }
 
-    // public function updatingData()
-    // {
-    //     $this->resetPage();
-    // }
+    public function updatingData()
+    {
+      
+    }
 
     public function render()
     {
@@ -147,7 +148,7 @@ class TeacherForm extends Component
         if($this->searchTerm){
             $this->fetchTeachers();
         }
-        $teachersdt= $this->teachers->paginate(5);
+        $teachersdt= $this->teachers->paginate(5,['*']);
          return view('livewire.teacher-form', [
             'teachers' => $teachersdt
         ]);
