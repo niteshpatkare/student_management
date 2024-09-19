@@ -23,7 +23,7 @@ class Subject extends Component
      public function mount()
     {
         $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); // Load all subjects initially
-        $this->teach_details = Teacher::all();
+        $this->refreshTeacher();
     }
     
 
@@ -83,12 +83,10 @@ class Subject extends Component
     {
         
         $subject = SubjectModel::find($this->delete_id)->update(['is_active' => 0]);
-        //$subject = SubjectModel::find($this->delete_id)->delete();
+        
 
-        //session()->flash('message', 'Subject deleted successfully!');
+        
         $this->dispatch('subjectEvent', status:3, message : 'Data deleted successfully!');
-            
-
         //$this->subjects = SubjectModel::all(); // Refresh the list of subjects
         $this->subjects = SubjectModel::where('is_active', 1)->get();
     }

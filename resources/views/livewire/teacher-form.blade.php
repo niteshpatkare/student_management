@@ -85,7 +85,7 @@
                 <h4>Teacher List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
-                        wire:input="fetchTeachers">
+                        wire:input="fetchTeachers" wire:click="resetPage()">
                 </div>
             </div>
             <table class="table table-striped table-bordered table-hover text-center">
@@ -96,7 +96,6 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Department</th>
-
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
