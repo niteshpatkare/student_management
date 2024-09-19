@@ -47,12 +47,12 @@
                 <h4>Students List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search students..." wire:model="searchTerm"
-                        wire:input="searchTerm">
+                        wire:input="fetchStudents">
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -73,7 +73,7 @@
                                     <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm"
                                             wire:click="edit({{ $student->id }})">Edit</button>
-                                        <button class="btn btn-outline-primary btn-sm"
+                                        <button class="btn btn-outline-danger btn-sm"
                                             wire:click="dltStudent({{ $student->id }})">Delete</button>
                                     </div>
                                 </td>
@@ -86,11 +86,11 @@
                     </tbody>
                    
                 </table>
-                    <div>
+                    
                         {{ $students->links() }}
-                    </div>
+                    
             </div>
-            <div>{{ $students->links() }}</div>
+            
         </div>
     </div>
 

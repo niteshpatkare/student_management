@@ -81,17 +81,14 @@
 
         <!-- Data Table Section -->
         <div class="col-md-9 ">
-            <!-- <div class="d-flex justify-content-between mb-3">
-                <h4>Students List</h4>
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Teacher List</h4>
                 <div class="input-group w-25">
                     <input type="text" class="form-control" placeholder="Search teachers..." wire:model="searchTerm"
                         wire:input="fetchTeachers">
-                    {{-- <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i> 
-                    </button> --}}
                 </div>
-            </div> -->
-            <table class="table table-striped table-bordered table-hover">
+            </div>
+            <table class="table table-striped table-bordered table-hover text-center">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -105,8 +102,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
-                    @foreach($teachers as $teacher)
+                    @forelse($teachers as $teacher)
                         <tr>
                             <td>{{ $teacher->id }}</td>
                             <td>{{ $teacher->name }}</td>
@@ -118,16 +114,19 @@
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                         wire:click="edit({{ $teacher->id }})">Edit</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                    <button type="button" class="btn btn-outline-danger btn-sm"
                                         wire:click="dltTeacher({{ $teacher->id }})">Delete</button>
                                 </div>
                             </td>
                         </tr>
-                    
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No Teachers Available</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-                {{$teachers->links()}}
+            <div>{{ $teachers->links() }}</div>
         </div>
     </div>
     <script>

@@ -20,9 +20,9 @@ class Subject extends Component
     protected $rules = [
         'sub_name' => 'required|string',
     ];
-public function mount()
+     public function mount()
     {
-        $this->subjects = SubjectModel::where('is_active', 1)->get(); // Load all subjects initially
+        $this->subjects = SubjectModel::with('teacher')->where('is_active', 1)->get(); // Load all subjects initially
         $this->teach_details = Teacher::all();
       
     }

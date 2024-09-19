@@ -1,35 +1,40 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Student as StudentModel;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
 
 class Student extends Component
 {
     use WithPagination;
-    protected $paginationTheme='Bootstrap';
-   
-    
- 
+    protected $paginationTheme = 'bootstrap';
+    protected $students;
     public $name, $email, $address, $mobile_no, $student_id;
- 
     public $searchTerm = '';
     public $delete_id;
 
     protected $listeners = ['deleteStudentConfirm' => 'deleteStudent'];
+
     protected function rules()
     {
         return [
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => 'required|email|unique:students,email,' . $this->student_id,
             'address' => 'required|string|max:255',
-            'mobile_no' => 'required|string|max:10',
+            'mobile_no' => 'required|string|max:10|min:10',
         ];
     }
 
-    
+    public function mount()
+    {
+        $this->fetchStudentdata();
+    }
+
+    public function fetchStudentdata(){
+        $this->students = StudentModel::select('id','name','email','mobile_no')->where('is_active', 1); // Load all teachers //prevcode
+    }
 
     public function submit()
     {
@@ -71,7 +76,7 @@ class Student extends Component
     public function edit($id)
     {
         $student = StudentModel::find($id);
-        $this->fillStudentData($student); // Use a separate function to fill data
+        $this->fillStudentData($student); 
     }
 
     public function fillStudentData($student)
@@ -91,8 +96,9 @@ class Student extends Component
 
     public function deleteStudent()
     {
-        StudentModel::find($this->delete_id)->delete();
+        StudentModel::find($this->delete_id)->update(['is_active' => 0]);
         $this->dispatch('studentEvent', ['status' => 3, 'message' => 'Data deleted successfully!']);
+        $this->fetchStudentdata();
     }
 
     public function resetForm()
@@ -100,15 +106,25 @@ class Student extends Component
         $this->reset(['name', 'email', 'address', 'mobile_no', 'student_id']);
     }
 
+    public function fetchStudents()
+    {
+        if($this->searchTerm){
+            $this->fetchStudentdata();
+            $this->students = $this->students->where(function (Builder $subQuery) {
+                $subQuery->Where('name', 'LIKE', "%{$this->searchTerm}%")
+                 ->orWhere('email', 'LIKE', "%{$this->searchTerm}%");
+            });
+        }    
+    }
+
     public function render()
     {
-        //if($this->searchTerm){
-            $students = StudentModel::where('name', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->paginate(2);
-        //}
-        return view('livewire.student', ['students' => $students]);
-        
+        $this->fetchStudentdata();
+        if($this->searchTerm){
+            $this->fetchStudents();
+        }
+        $studentdt= $this->students->paginate(10);
+        return view('livewire.student', ['students' => $studentdt]);
     }
+    
 }
-

@@ -66,7 +66,7 @@
                         wire:input="fetchExams">
                 </div>
             </div>
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table table-striped table-bordered table-hover text-center">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -91,7 +91,7 @@
                                     <button wire:click="editExam({{ $exam->id }})"
                                         class="btn btn-outline-primary btn-sm">Edit</button>
                                     <button wire:click="dltExam({{ $exam->id }})"
-                                        class="btn btn-outline-primary btn-sm">Delete</button>
+                                        class="btn btn-outline-danger btn-sm">Delete</button>
                                 </div>
                             </td>
                         </tr>

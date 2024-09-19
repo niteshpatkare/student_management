@@ -49,7 +49,7 @@
 
             <!-- Data Table Section -->
             <div class="col-md-9">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -60,17 +60,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            
+                        @forelse($add_examdetails as $add_examdetail)
+                            <tr>
+                                <th scope="row">{{ $add_examdetail->id }}</th>
+                                <td>{{ $add_examdetail->subjectBelongsTo->sub_name }}</td>
+                                <td>{{ $add_examdetail->examBelongsTo->exam_name }}</td>
+                                <td>{{ $add_examdetail->studentBelongsTo->name }}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="editButton"
+                                            wire:click="edit({{ $add_examdetail->id }})">Edit</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                            wire:click="dltTeacher({{ $add_examdetail->id }})">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">No subjects found.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
+                {{$add_examdetails->links()}}
             </div>
         </div>
     </div>
     <script>
         
         document.addEventListener('livewire:init', () => {
-            Livewire.on('subjectEvent', (data) => {
+            Livewire.on('examdetailEvent', (data) => {
                 //console.log(data.message);
                 // Trigger IziToast notification immediately with the received message
                 if(data.status==1){
@@ -100,7 +119,7 @@
     </script>
 
     <script>
-        window.addEventListener('show-delete-confirmation-subject', event => {
+        window.addEventListener('show-delete-confirmation-examdetail', event => {
         //alert("Okay1");
             Swal.fire({
             title: "Are you sure?",
@@ -112,7 +131,7 @@
             confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteSubjectConfirm')
+                    Livewire.dispatch('deleteExamdetailConfirm')
                 }
             });
 
